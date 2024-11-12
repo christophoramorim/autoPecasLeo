@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
-/**
- *
- * @author Christophor
- */
-public class ModelCliente {
+public class Cliente {
     private int idCliente;
     private String cliNome;
     private String cliCpf;
@@ -20,10 +11,10 @@ public class ModelCliente {
     private String cliCep;
     private String cliTelefone;
 
-    public ModelCliente() {
+    public Cliente() {
     }
 
-    public ModelCliente(int idCliente, String cliNome, String cliCpf, String cliEndereco, String cliBairro, String cliCidade, String cliUf, String cliCep, String cliTelefone) {
+    public Cliente(int idCliente, String cliNome, String cliCpf, String cliEndereco, String cliBairro, String cliCidade, String cliUf, String cliCep, String cliTelefone) {
         this.idCliente = idCliente;
         this.cliNome = cliNome;
         this.cliCpf = cliCpf;

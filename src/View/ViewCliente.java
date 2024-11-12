@@ -1,25 +1,29 @@
-
 package View;
-
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Model.ModelCliente;
+import Model.Cliente;
+import DAO.ClienteDAO;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ViewCliente extends javax.swing.JInternalFrame {
+    ArrayList<Cliente> listaModelClientes = new ArrayList<>();
     
-    ModelCliente modelCliente = new ModelCliente();
-    ArrayList<ModelCliente> listaModelClientes = new ArrayList<>();
     String salvarAlterar;
     
+    Cliente cliente;
+    ClienteDAO clienteDAO;    
+    
     public ViewCliente() {
+        clienteDAO = new ClienteDAO();
         initComponents();
         this.setVisible(true);
         this.desabilitaHabilitaCampos(false);
         this.limparCampos();
-        this.carregarCliente();
+        this.carregarClientes();
     }
 
     /**
@@ -57,6 +61,8 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         txt_cpf = new javax.swing.JFormattedTextField();
         txt_telefone = new javax.swing.JFormattedTextField();
 
+        setClosable(true);
+
         lb_codigo.setText("Codigo:");
 
         txt_codigo.setEnabled(false);
@@ -91,6 +97,11 @@ public class ViewCliente extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tb_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_clienteMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tb_cliente);
@@ -280,38 +291,56 @@ public class ViewCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
             txt_nome.requestFocus();
         }
-        
-        //Pegando todos os dados dos botões
-        modelCliente.setIdCliente(Integer.parseInt(this.txt_codigo.getText()));
-        modelCliente.setCliNome(this.txt_nome.getText());
-        modelCliente.setCliEndereco(this.txt_endereco.getText());
-        modelCliente.setCliBairro(this.txt_bairro.getText());
-        modelCliente.setCliCidade(this.txt_cidade.getText());
-        modelCliente.setCliUf(this.cbb_uf.getSelectedItem().toString());
-        modelCliente.setCliCep(this.txt_cep.getText());
-        modelCliente.setCliTelefone(this.txt_telefone.getText());
-        
-        //identificando qual operação que irá realizar no banco de dados
-        if (salvarAlterar.equals("salvar")) {
-            try {
-                //função para salvar o cliente no banco de dados
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "ERRO: " + ex);
+        else
+        {
+            //Pegando todos os dados dos botões
+            cliente = new Cliente();
+            
+            int id = 0;
+            if (txt_codigo.getText() != null && !txt_codigo.getText().trim().isEmpty()) {
+                try {
+                    id = Integer.parseInt(txt_codigo.getText().trim());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "O campo de código deve ser numérico.");
+                }
             }
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-            carregarCliente();
-            this.desabilitaHabilitaCampos(false);
-            this.limparCampos();
-        } else {
-            try {
-                //função para alterar o cliente no banco de dados
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "ERRO: " + ex);
+            
+            cliente.setIdCliente(id);
+            cliente.setCliNome(this.txt_nome.getText());
+            cliente.setCliCpf(this.txt_cpf.getText());
+            cliente.setCliEndereco(this.txt_endereco.getText());
+            cliente.setCliBairro(this.txt_bairro.getText());
+            cliente.setCliCidade(this.txt_cidade.getText());
+            cliente.setCliUf(this.cbb_uf.getSelectedItem().toString());
+            cliente.setCliCep(this.txt_cep.getText());
+            cliente.setCliTelefone(this.txt_telefone.getText());
+
+            //identificando qual operação que irá realizar no banco de dados
+            if (salvarAlterar.equals("salvar")) {
+                try {
+                    clienteDAO.Salvar(cliente);
+                }catch(SQLException e){
+                    Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
+
+                JOptionPane.showMessageDialog(null, "Gravado com sucesso");
+                carregarClientes();
+                this.limparCampos();
+                this.desabilitaHabilitaCampos(false);
+                
+            } else {
+                try {
+                    clienteDAO.Editar(cliente);
+                }catch(SQLException e){
+                   Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+                   JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+                carregarClientes();
+                this.limparCampos();
+                this.desabilitaHabilitaCampos(false);
             }
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-            carregarCliente();
-            this.desabilitaHabilitaCampos(false);
-            this.limparCampos();
         }
     }//GEN-LAST:event_bt_salvarActionPerformed
 
@@ -319,29 +348,60 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         int linha = tb_cliente.getSelectedRow();
         int codigoCliente = (int) tb_cliente.getValueAt(linha, 0);
         salvarAlterar = "alterar";
-        
-        //buscar cliente com o codigo e passar para o modelo
-        
-        
-        txt_codigo.setText(String.valueOf(modelCliente.getIdCliente()));
-        txt_nome.setText(modelCliente.getCliNome());
-        txt_cpf.setText(modelCliente.getCliCpf());
-        txt_endereco.setText(modelCliente.getCliEndereco());
-        txt_bairro.setText(modelCliente.getCliBairro());
-        txt_cidade.setText(modelCliente.getCliCidade());
-        cbb_uf.setSelectedItem(modelCliente.getCliUf());
-        txt_cep.setText(modelCliente.getCliCep());
-        txt_telefone.setText(modelCliente.getCliTelefone());
+       
+        cliente = new Cliente();        
+
+        try {
+            cliente = clienteDAO.BuscarClientePorId(String.valueOf(codigoCliente));
+        } catch (Exception e) {
+            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        // Preenche os campos com os dados do cliente
+        txt_codigo.setText(String.valueOf(cliente.getIdCliente()));
+        txt_nome.setText(cliente.getCliNome());
+        txt_cpf.setText(cliente.getCliCpf());
+        txt_endereco.setText(cliente.getCliEndereco());
+        txt_bairro.setText(cliente.getCliBairro());
+        txt_cidade.setText(cliente.getCliCidade());
+        cbb_uf.setSelectedItem(cliente.getCliUf());
+        txt_cep.setText(cliente.getCliCep());
+        txt_telefone.setText(cliente.getCliTelefone());
         this.desabilitaHabilitaCampos(true);
     }//GEN-LAST:event_bt_alterarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        //identifica o registro selecionado
         int linha = tb_cliente.getSelectedRow();
         int codigoCliente = (int) tb_cliente.getValueAt(linha, 0);
         
-        //comando para excluir do banco de dados
+        if(txt_codigo.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Selecione um cliente");
+        }
+        else
+        {
+            cliente = new Cliente();
+            cliente.setIdCliente(Integer.parseInt(txt_codigo.getText()));
+            int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
+            if (confirm == 0)
+            {
+               try {
+                clienteDAO.Deletar(cliente);
+            } catch (SQLException e) {
+                Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, "ERRO: " + e);
+            }
+            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+            limparCampos();
+            carregarClientes();
+            this.desabilitaHabilitaCampos(true);
+            }            
+        }
     }//GEN-LAST:event_bt_excluirActionPerformed
+
+    private void tb_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_clienteMouseClicked
+
+    }//GEN-LAST:event_tb_clienteMouseClicked
 
     private void desabilitaHabilitaCampos(boolean condicao) {
         txt_nome.setEnabled(condicao);
@@ -364,21 +424,25 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         txt_telefone.setText("");
     }
     
-    public void carregarCliente(){
-        //listaModelClientes = retorno do banco de dados
-        DefaultTableModel modelo = (DefaultTableModel) tb_cliente.getModel();
-        modelo.setNumRows(0);
-        int cont = listaModelClientes.size();
-        for (int i = 0; i < cont; i++) {
-            modelo.addRow(new Object[]{
-                listaModelClientes.get(i).getIdCliente(),
-                listaModelClientes.get(i).getCliNome(),
-                listaModelClientes.get(i).getCliCidade(),
-                listaModelClientes.get(i).getCliTelefone()
-            });
+    public void carregarClientes() {
+        try {
+            listaModelClientes = clienteDAO.listarTodosClientes();
+            DefaultTableModel modelo = (DefaultTableModel) tb_cliente.getModel();
+            modelo.setNumRows(0);           
 
-        }
+            for (Cliente cliente : listaModelClientes) {
+                modelo.addRow(new Object[]{
+                    cliente.getIdCliente(),
+                    cliente.getCliNome(),
+                    cliente.getCliCpf(),
+                    cliente.getCliTelefone()
+                });            
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar clientes: " + e.getMessage());
     }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_alterar;

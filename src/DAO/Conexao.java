@@ -17,10 +17,10 @@ public class Conexao {
     private Conexao() {
         // Altere o usuário e senha de acordo com o banco de dados instalado
         usuario = "root";
-        senha = "root";
+        senha = "admin";
         
         // Defina aqui o nome do seu banco de dados
-        url = "jdbc:mysql://localhost:3306/locadora";
+        url = "jdbc:mysql://localhost:3306/APL";
 
         try {
             Class.forName("com.mysql.jdbc.Driver");

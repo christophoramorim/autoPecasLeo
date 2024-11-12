@@ -1,28 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Model.ModelUsuario;
+import Model.Usuario;
+import DAO.UsuarioDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author Christophor
- */
 public class ViewUsuario extends javax.swing.JInternalFrame {
 
-    ModelUsuario modelUsuario = new ModelUsuario();
-    ArrayList<ModelUsuario> listaModelUsuarios = new ArrayList<>();
+    //Usuario modelUsuario = new Usuario();
+    ArrayList<Usuario> listaModelUsuarios = new ArrayList<>();
     String alterarSalvar;
     
+    Usuario usuario;
+    UsuarioDAO usuarioDAO;
+    
     public ViewUsuario() {
+        usuarioDAO = new UsuarioDAO();
         initComponents();
         this.setVisible(true);
+        this.desabilitaHabilitaCampos(false);
+        this.limparCampos();
+        this.carregarUsuarios();
     }
 
     /**
@@ -53,6 +55,8 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
         txt_cpf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cbb_cargo = new javax.swing.JComboBox();
+
+        setClosable(true);
 
         lb_codigo.setText("Código");
 
@@ -219,44 +223,64 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         limparCampos();
-        habilitarDesabilitarCampos(false);
+        desabilitaHabilitaCampos(false);
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        
         //Verifica se os campos obrigatorios estão preenchidos
         if(txt_nome.getText().isEmpty() || txt_cpf.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
             txt_nome.requestFocus();
         }
+        else
+        {
+            //passa todos os valor para o modelo
+            usuario = new Usuario();
+            
+            int id = 0;
+            if (txt_codigo.getText() != null && !txt_codigo.getText().trim().isEmpty()) {
+                try {
+                    id = Integer.parseInt(txt_codigo.getText().trim());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "O campo de código deve ser numérico.");
+                }
+            }
         
-        //passa todos os valor para o modelo
-        modelUsuario.setIdUsuario(Integer.parseInt(txt_codigo.getText()));
-        modelUsuario.setUsuNome(txt_nome.getText());
-        modelUsuario.setUsuLogin(txt_login.getText());
-        modelUsuario.setUsuSenha(txt_senha.getText());
+            usuario.setIdUsuario(id);
+            usuario.setUsuNome(this.txt_nome.getText());
+            usuario.setUsuCpf(this.txt_cpf.getText());
+            usuario.setUsuCargo(this.cbb_cargo.getSelectedItem().toString());
+            usuario.setUsuLogin(this.txt_login.getText());
+            usuario.setUsuSenha(this.txt_senha.getText());
 
-        if (this.alterarSalvar.equals("salvar")) {
-            try {
-                //função para salvar o uuario no banco de dados
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "ERRO: " + ex);
+            if (this.alterarSalvar.equals("salvar")) {
+                try {
+                    //função para salvar o uuario no banco de dados
+                    usuarioDAO.Salvar(usuario);
+                }catch(SQLException e){
+                    Logger.getLogger(ViewUsuario.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
+                    JOptionPane.showMessageDialog(null, "Gravado com sucesso");
+                    carregarUsuarios();
+                    this.limparCampos();
+                    this.desabilitaHabilitaCampos(false);
+            } else {
+                try {
+                    //função para alterar o usuario no banco de dados
+                    usuarioDAO.Editar(usuario);
+                }catch(Exception e){
+                    Logger.getLogger(ViewUsuario.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+                carregarUsuarios();
+                this.limparCampos();
+                this.desabilitaHabilitaCampos(false);
             }
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-            carregarUsuarios();
-            this.habilitarDesabilitarCampos(false);
-            this.limparCampos();
-        } else {
-            try {
-                //função para alterar o usuario no banco de dados
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "ERRO: " + ex);
-            }
-            JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-            carregarUsuarios();
-            this.habilitarDesabilitarCampos(false);
-            this.limparCampos();
         }
+        
+        
     }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
@@ -264,46 +288,75 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
         int linha = tb_usuario.getSelectedRow();
         int codigoUsuario = (int) tb_usuario.getValueAt(linha, 0);
         
-        //comando para excluir o registro
+        if(txt_codigo.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Selecione um vendedor");
+        }
+        else
+        {
+            usuario = new Usuario();
+            usuario.setIdUsuario(Integer.parseInt(txt_codigo.getText()));
+            int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
+            if (confirm == 0)
+            {
+               try {
+                usuarioDAO.Deletar(usuario);
+            } catch (SQLException e) {
+                Logger.getLogger(ViewUsuario.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, "ERRO: " + e);
+            }
+                JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+                limparCampos();
+                carregarUsuarios();
+                this.desabilitaHabilitaCampos(true);
+            }            
+        }
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
         //identifica o registro selecionado
         int linha = tb_usuario.getSelectedRow();
         int codigo = (int) tb_usuario.getValueAt(linha, 0);
-
-        //buscar do banco o registro do usuario
-        
-        txt_codigo.setText(String.valueOf(modelUsuario.getIdUsuario()));
-        txt_nome.setText(modelUsuario.getUsuNome());
-        txt_cpf.setText(modelUsuario.getUsuCpf());
-        cbb_cargo.setSelectedItem(modelUsuario.getUsuCargo());
-        txt_login.setText(modelUsuario.getUsuLogin());
-        txt_senha.setText(modelUsuario.getUsuSenha());
-
         alterarSalvar = "alterar";
-        habilitarDesabilitarCampos(true);
+        
+        usuario = new Usuario();
+        
+        try {
+            usuario = usuarioDAO.BuscarUsuarioPorId(String.valueOf(codigo));
+        } catch (Exception e) {
+            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        txt_codigo.setText(String.valueOf(usuario.getIdUsuario()));
+        txt_nome.setText(usuario.getUsuNome());
+        txt_cpf.setText(usuario.getUsuCpf());
+        cbb_cargo.setSelectedItem(usuario.getUsuCargo());
+        txt_login.setText(usuario.getUsuLogin());
+        txt_senha.setText(usuario.getUsuSenha());        
+        desabilitaHabilitaCampos(true);
     }//GEN-LAST:event_bt_alterarActionPerformed
 
     private void bt_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_novoActionPerformed
+        desabilitaHabilitaCampos(true);
         limparCampos();
-        habilitarDesabilitarCampos(true);
         alterarSalvar = "salvar";
     }//GEN-LAST:event_bt_novoActionPerformed
 
     private void carregarUsuarios() {
-        // listaModelUsuarios = função do banco que retorna um array com os dados
-        
-        DefaultTableModel modelo = (DefaultTableModel) tb_usuario.getModel();
-        modelo.setNumRows(0);
+        try{
+            listaModelUsuarios = usuarioDAO.listarTodosUsuarios();
+            DefaultTableModel modelo = (DefaultTableModel) tb_usuario.getModel();
+            modelo.setNumRows(0);           
 
-        int cont = listaModelUsuarios.size();
-        for (int i = 0; i < cont; i++) {
-            modelo.addRow(new Object[]{
-                listaModelUsuarios.get(i).getIdUsuario(),
-                listaModelUsuarios.get(i).getUsuNome(),
-                listaModelUsuarios.get(i).getUsuCargo()
-            });
+            for (Usuario usuario : listaModelUsuarios) {
+                modelo.addRow(new Object[]{
+                    usuario.getIdUsuario(),
+                    usuario.getUsuNome(),
+                    usuario.getUsuCpf()
+                });            
+            }
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar usuários: " + e.getMessage());
         }
     }
     
@@ -315,7 +368,7 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
         txt_senha.setText("");
     }
     
-    private void habilitarDesabilitarCampos(boolean condicao) {
+    private void desabilitaHabilitaCampos(boolean condicao) {
         txt_codigo.setEnabled(condicao);
         txt_nome.setEnabled(condicao);
         txt_cpf.setEditable(condicao);

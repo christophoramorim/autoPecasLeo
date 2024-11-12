@@ -1,0 +1,32 @@
+CREATE DATABASE APL;
+
+USE APL;
+
+CREATE TABLE cliente(
+  id   int(5) auto_increment, 
+  nome     varchar(45),
+  cpf varchar(45),
+  endereco   varchar(255),
+  bairro   varchar(255),
+  cidade   varchar(255),
+  uf       varchar(2),
+  cep      varchar(9), 
+  telefone varchar(15),
+PRIMARY KEY (Id));
+
+insert into cliente values (0,"Mateus","12345678902","Rua Das Couves","Centro","Frutal","MG","38200-000", "3491111-2222")
+
+SELECT * FROM cliente
+
+CREATE TABLE usuario(
+  id   int(5) auto_increment, 
+  nome     varchar(45),
+  cpf varchar(45),
+  cargo   varchar(255),
+  login   varchar(255),
+  senha   varchar(255),
+PRIMARY KEY (Id));
+
+insert into usuario values (0,"gabriel","111-111-111-11","vendedor","gab","123")
+
+select * from usuario

@@ -1,19 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
-/**
- *
- * @author rodri
- */
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Model.Vendas;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ViewVendas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrame
-     */
     public ViewVendas() {
         initComponents();
     }
@@ -59,8 +55,6 @@ public class ViewVendas extends javax.swing.JFrame {
         txt_observacao = new javax.swing.JLabel();
         txt_nome_produto = new javax.swing.JLabel();
         bt_remove_produto = new javax.swing.JButton();
-        cbb_nome_produto = new componentes.UJComboBox();
-        cbb_nome_cliente = new componentes.UJComboBox();
         lb_desconto = new javax.swing.JTextField();
         txt_desconto = new javax.swing.JLabel();
         txt_data = new javax.swing.JLabel();
@@ -264,35 +258,6 @@ public class ViewVendas extends javax.swing.JFrame {
             }
         });
         Painel_Cadastro.add(bt_remove_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, -1, -1));
-
-        cbb_nome_produto.setAutocompletar(true);
-        cbb_nome_produto.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                cbb_nome_produtoPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-        cbb_nome_produto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbb_nome_produtoActionPerformed(evt);
-            }
-        });
-        Painel_Cadastro.add(cbb_nome_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 340, -1));
-
-        cbb_nome_cliente.setAutocompletar(true);
-        cbb_nome_cliente.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                cbb_nome_clientePopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-        Painel_Cadastro.add(cbb_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 400, -1));
 
         lb_desconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -657,8 +622,6 @@ public class ViewVendas extends javax.swing.JFrame {
     private javax.swing.JButton bt_remove_produto;
     private javax.swing.JButton bt_salvar;
     private javax.swing.JButton btn_pesquisa;
-    private componentes.UJComboBox cbb_nome_cliente;
-    private componentes.UJComboBox cbb_nome_produto;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

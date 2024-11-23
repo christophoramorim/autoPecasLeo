@@ -4,6 +4,8 @@ package View;
 import javax.swing.JFrame;
 import View.ViewCliente;
 import View.ViewUsuario;
+import View.ViewProduto;
+import View.ViewVendas;
 
 public class ViewPrincipal extends javax.swing.JFrame {
 
@@ -30,6 +32,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mn_cadastro = new javax.swing.JMenu();
         mni_cliente = new javax.swing.JMenuItem();
         mni_vendedor = new javax.swing.JMenuItem();
+        mni_produto = new javax.swing.JMenuItem();
+        mni_vendas = new javax.swing.JMenuItem();
         mn_sair = new javax.swing.JMenu();
         mni_sair = new javax.swing.JMenuItem();
 
@@ -63,6 +67,22 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
         mn_cadastro.add(mni_vendedor);
+
+        mni_produto.setText("Produto");
+        mni_produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mni_produtoActionPerformed(evt);
+            }
+        });
+        mn_cadastro.add(mni_produto);
+
+        mni_vendas.setText("Vendas");
+        mni_vendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mni_vendasActionPerformed(evt);
+            }
+        });
+        mn_cadastro.add(mni_vendas);
 
         jMenuBar1.add(mn_cadastro);
 
@@ -112,6 +132,21 @@ public class ViewPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mni_sairActionPerformed
 
+    private void mni_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_produtoActionPerformed
+        ViewProduto produto = new ViewProduto();
+        pnl_principal.removeAll();
+        pnl_principal.add(produto);
+        pnl_principal.updateUI();
+       
+    }//GEN-LAST:event_mni_produtoActionPerformed
+
+    private void mni_vendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_vendasActionPerformed
+        ViewVendas Vendas = new ViewVendas();
+        pnl_principal.removeAll();
+        pnl_principal.add(Vendas);
+        pnl_principal.updateUI();
+    }//GEN-LAST:event_mni_vendasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -152,7 +187,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mn_cadastro;
     private javax.swing.JMenu mn_sair;
     private javax.swing.JMenuItem mni_cliente;
+    private javax.swing.JMenuItem mni_produto;
     private javax.swing.JMenuItem mni_sair;
+    private javax.swing.JMenuItem mni_vendas;
     private javax.swing.JMenuItem mni_vendedor;
     private javax.swing.JPanel pnl_principal;
     // End of variables declaration//GEN-END:variables

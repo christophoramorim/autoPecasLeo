@@ -1,15 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package View;
 
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import Model.Vendas;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+/**
+ *
+ * @author rodri
+ */
+public class ViewVendas extends javax.swing.JInternalFrame {
 
-public class ViewVendas extends javax.swing.JFrame {
-
+    /**
+     * Creates new form NewJInternalFrame
+     */
     public ViewVendas() {
         initComponents();
     }
@@ -25,71 +29,67 @@ public class ViewVendas extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        txt_pesquisa = new javax.swing.JLabel();
-        lb_pesquisa = new javax.swing.JTextField();
-        btn_pesquisa = new javax.swing.JButton();
+        lb_pesquisa = new javax.swing.JLabel();
+        txt_pesquisa = new javax.swing.JTextField();
+        bt_pesquisa = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tb_vendas = new javax.swing.JTable();
-        bt_excluir = new javax.swing.JButton();
+        jTable2 = new javax.swing.JTable();
         bt_alterar = new javax.swing.JButton();
+        bt_excluir = new javax.swing.JButton();
         bt_imprimir = new javax.swing.JButton();
-        Painel_Cadastro = new javax.swing.JPanel();
-        lb_codigo_cliente = new javax.swing.JTextField();
-        txt_codigo_cliente = new javax.swing.JLabel();
-        txt_nome_cliente = new javax.swing.JLabel();
-        lb_numero_venda = new javax.swing.JTextField();
-        txt_numero_venda = new javax.swing.JLabel();
-        txt_codigo_produto = new javax.swing.JLabel();
-        lb_codigo_produto = new javax.swing.JTextField();
-        lb_quantidade = new javax.swing.JTextField();
-        txt_quantidade = new javax.swing.JLabel();
-        bt_adicionarprod = new javax.swing.JButton();
+        Cadastro = new javax.swing.JPanel();
+        lb_cliente = new javax.swing.JLabel();
+        txt_codcli = new javax.swing.JTextField();
+        lb_nomecliente = new javax.swing.JLabel();
+        txt_nomecliente = new javax.swing.JTextField();
+        lb_numvenda = new javax.swing.JLabel();
+        txt_numvenda = new javax.swing.JTextField();
+        txt_codprod = new javax.swing.JTextField();
+        lb_codprod = new javax.swing.JLabel();
+        lb_nomeproduto = new javax.swing.JLabel();
+        txt_nomeproduto = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        lb_quantidade = new javax.swing.JLabel();
+        bt_adicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tb_ProdutosVenda = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         bt_cancelar = new javax.swing.JButton();
+        bt_novo = new javax.swing.JButton();
+        bt_remove = new javax.swing.JButton();
+        lb_desconto = new javax.swing.JLabel();
+        txt_desconto = new javax.swing.JTextField();
+        lb_total = new javax.swing.JLabel();
+        txt_total = new javax.swing.JTextField();
         bt_salvar = new javax.swing.JButton();
-        bt_Novo = new javax.swing.JButton();
-        lb_valor_total = new javax.swing.JTextField();
-        lb_observacao = new javax.swing.JTextField();
-        txt_valor_total = new javax.swing.JLabel();
-        txt_observacao = new javax.swing.JLabel();
-        txt_nome_produto = new javax.swing.JLabel();
-        bt_remove_produto = new javax.swing.JButton();
-        lb_desconto = new javax.swing.JTextField();
-        txt_desconto = new javax.swing.JLabel();
-        txt_data = new javax.swing.JLabel();
-        lb_data = new javax.swing.JTextField();
+        txt_obs = new javax.swing.JTextField();
+        lb_obs = new javax.swing.JLabel();
+        lb_data = new javax.swing.JLabel();
+        txt_data = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lb_pesquisa.setText("Pesquisa:");
 
-        txt_pesquisa.setText("Pesquisa:");
+        txt_pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_pesquisaActionPerformed(evt);
+            }
+        });
 
-        btn_pesquisa.setText("Pesquisar");
+        bt_pesquisa.setText("Pesquisar");
+        bt_pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_pesquisaActionPerformed(evt);
+            }
+        });
 
-        tb_vendas.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nome Cliente", "Data"
+                "Código", "Nome Cliente", "Data"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tb_vendas);
-
-        bt_excluir.setText("Excluir");
-        bt_excluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_excluirActionPerformed(evt);
-            }
-        });
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         bt_alterar.setText("Alterar");
         bt_alterar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +97,8 @@ public class ViewVendas extends javax.swing.JFrame {
                 bt_alterarActionPerformed(evt);
             }
         });
+
+        bt_excluir.setText("Excluir");
 
         bt_imprimir.setText("Imprimir");
         bt_imprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -112,541 +114,338 @@ public class ViewVendas extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_pesquisa)
+                            .addComponent(lb_pesquisa)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lb_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_pesquisa)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(txt_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bt_pesquisa)))
+                        .addGap(0, 40, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(bt_excluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bt_alterar)
-                        .addGap(345, 345, 345)
-                        .addComponent(bt_imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(9, 9, 9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_pesquisa)
+                .addComponent(lb_pesquisa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_pesquisa))
+                    .addComponent(txt_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_pesquisa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_excluir)
+                    .addComponent(bt_excluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bt_alterar)
                     .addComponent(bt_imprimir))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Consultar/Excluir/Alterar", jPanel2);
+        jTabbedPane1.addTab("Consulta", jPanel2);
 
-        Painel_Cadastro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        lb_cliente.setText("Cód. Cli");
 
-        lb_codigo_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                lb_codigo_clienteFocusLost(evt);
-            }
-        });
-        Painel_Cadastro.add(lb_codigo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 79, -1));
-
-        txt_codigo_cliente.setText("Código Cli.");
-        Painel_Cadastro.add(txt_codigo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
-
-        txt_nome_cliente.setText("Nome do Cliente:");
-        Painel_Cadastro.add(txt_nome_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 11, -1, -1));
-
-        lb_numero_venda.setBackground(new java.awt.Color(204, 255, 204));
-        Painel_Cadastro.add(lb_numero_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 31, 158, -1));
-
-        txt_numero_venda.setText("Número da venda:");
-        Painel_Cadastro.add(txt_numero_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 11, -1, -1));
-
-        txt_codigo_produto.setText("Código Prod.");
-        Painel_Cadastro.add(txt_codigo_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        lb_codigo_produto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                lb_codigo_produtoFocusLost(evt);
-            }
-        });
-        Painel_Cadastro.add(lb_codigo_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 79, -1));
-        Painel_Cadastro.add(lb_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 130, -1));
-
-        txt_quantidade.setText("Quantidade:");
-        Painel_Cadastro.add(txt_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, -1));
-
-        bt_adicionarprod.setText("Adicionar");
-        bt_adicionarprod.addActionListener(new java.awt.event.ActionListener() {
+        txt_codcli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_adicionarprodActionPerformed(evt);
+                txt_codcliActionPerformed(evt);
             }
         });
-        Painel_Cadastro.add(bt_adicionarprod, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 80, -1));
 
-        tb_ProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
+        lb_nomecliente.setText("Nome do Cliente:");
+
+        lb_numvenda.setText("Número da venda:");
+
+        lb_codprod.setText("Cód. Produto");
+
+        lb_nomeproduto.setText("Nome do Produto:");
+
+        lb_quantidade.setText("Quantidade:");
+
+        bt_adicionar.setText("Adicionar");
+        bt_adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_adicionarActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Cód. Prod.", "Nome Produto", "Quant.", "Valor Un.", "Valor Total"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tb_ProdutosVenda);
-
-        Painel_Cadastro.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 663, 271));
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         bt_cancelar.setText("Cancelar");
-        Painel_Cadastro.add(bt_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, -1, -1));
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
+
+        bt_novo.setText("Novo");
+
+        bt_remove.setText("Remover Produtos");
+
+        lb_desconto.setText("Desconto:");
+
+        lb_total.setText("Valor total:");
 
         bt_salvar.setText("Salvar");
-        bt_salvar.setEnabled(false);
         bt_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_salvarActionPerformed(evt);
             }
         });
-        Painel_Cadastro.add(bt_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 480, -1, -1));
 
-        bt_Novo.setText("Novo");
-        bt_Novo.addActionListener(new java.awt.event.ActionListener() {
+        lb_obs.setText("Observação:");
+
+        lb_data.setText("Data:");
+
+        txt_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txt_data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_NovoActionPerformed(evt);
+                txt_dataActionPerformed(evt);
             }
         });
-        Painel_Cadastro.add(bt_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, -1, -1));
-        Painel_Cadastro.add(lb_valor_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, 125, -1));
 
-        lb_observacao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                lb_observacaoFocusLost(evt);
-            }
-        });
-        Painel_Cadastro.add(lb_observacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 280, 50));
+        javax.swing.GroupLayout CadastroLayout = new javax.swing.GroupLayout(Cadastro);
+        Cadastro.setLayout(CadastroLayout);
+        CadastroLayout.setHorizontalGroup(
+            CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CadastroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CadastroLayout.createSequentialGroup()
+                                .addComponent(txt_codcli, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(CadastroLayout.createSequentialGroup()
+                                .addComponent(lb_cliente)
+                                .addGap(47, 47, 47)
+                                .addComponent(lb_nomecliente)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CadastroLayout.createSequentialGroup()
+                                .addComponent(lb_numvenda)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txt_numvenda)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CadastroLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_desconto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_desconto))
+                        .addGap(20, 20, 20)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_total)))
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addComponent(bt_cancelar)
+                        .addGap(14, 14, 14)
+                        .addComponent(bt_novo)
+                        .addGap(18, 18, 18)
+                        .addComponent(bt_remove)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_salvar))
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(CadastroLayout.createSequentialGroup()
+                                    .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_codprod, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lb_codprod))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(CadastroLayout.createSequentialGroup()
+                                            .addGap(3, 3, 3)
+                                            .addComponent(lb_nomeproduto))))
+                                .addComponent(txt_obs))
+                            .addGroup(CadastroLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(lb_obs)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CadastroLayout.createSequentialGroup()
+                                .addComponent(jTextField6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bt_adicionar))
+                            .addGroup(CadastroLayout.createSequentialGroup()
+                                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lb_quantidade)
+                                    .addComponent(lb_data)
+                                    .addComponent(txt_data, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 80, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        CadastroLayout.setVerticalGroup(
+            CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CadastroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_cliente)
+                    .addComponent(lb_nomecliente)
+                    .addComponent(lb_numvenda))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_codcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_numvenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addComponent(lb_codprod)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_codprod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_nomeproduto)
+                            .addComponent(lb_quantidade))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_adicionar)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_obs)
+                    .addComponent(lb_data))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_obs, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addComponent(txt_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_desconto)
+                            .addComponent(lb_total))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_desconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CadastroLayout.createSequentialGroup()
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bt_remove)
+                            .addComponent(bt_novo)
+                            .addComponent(bt_cancelar)
+                            .addComponent(bt_salvar))
+                        .addContainerGap())))
+        );
 
-        txt_valor_total.setText("Valor total:");
-        Painel_Cadastro.add(txt_valor_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, -1, -1));
-
-        txt_observacao.setText("Observação:");
-        Painel_Cadastro.add(txt_observacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
-
-        txt_nome_produto.setText("Nome do Produto:");
-        Painel_Cadastro.add(txt_nome_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
-
-        bt_remove_produto.setText("Remover Produtos");
-        bt_remove_produto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_remove_produtoActionPerformed(evt);
-            }
-        });
-        Painel_Cadastro.add(bt_remove_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, -1, -1));
-
-        lb_desconto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                lb_descontoFocusLost(evt);
-            }
-        });
-        Painel_Cadastro.add(lb_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 111, -1));
-
-        txt_desconto.setText("Desconto:");
-        Painel_Cadastro.add(txt_desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
-
-        txt_data.setText("Data:");
-        Painel_Cadastro.add(txt_data, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
-
-        lb_data.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                lb_dataFocusLost(evt);
-            }
-        });
-        Painel_Cadastro.add(lb_data, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 111, -1));
-
-        jTabbedPane1.addTab("Cadastro", Painel_Cadastro);
+        jTabbedPane1.addTab("Cadastro", Cadastro);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lb_codigo_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lb_codigo_clienteFocusLost
+    private void bt_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_adicionarActionPerformed
         // TODO add your handling code here:
-        modelCliente = controllerCliente.getClienteController(Integer.parseInt(lb_codigo_cliente.getText()));
-        cbb_nome_cliente.setSelectedItem(modelCliente.getCliNome());
-    }//GEN-LAST:event_lb_codigo_clienteFocusLost
+    }//GEN-LAST:event_bt_adicionarActionPerformed
 
-    private void lb_codigo_produtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lb_codigo_produtoFocusLost
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         // TODO add your handling code here:
-        modelProdutos = controllerProdutos.retornarProdutoController(Integer.parseInt(lb_codigo_produto.getText()));
-        cbb_nome_produto.setSelectedItem(modelProdutos.getProNome());
-    }//GEN-LAST:event_lb_codigo_produtoFocusLost
-
-    private void bt_adicionarprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_adicionarprodActionPerformed
-        // TODO add your handling code here:
-        if (lb_quantidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
-        } else {
-            modelProdutos = controllerProdutos.retornarProdutoController(Integer.parseInt(lb_codigo_produto.getText()));
-            //adicionar uma linha na tabela
-            DefaultTableModel modelo = (DefaultTableModel) tb_ProdutosVenda.getModel();
-            int cont = 0;
-            double quantidade = 0;
-            quantidade = Double.parseDouble(lb_quantidade.getText());
-            for (int i = 0; i < cont; i++) {
-                modelo.setNumRows(0);
-            }
-
-            modelo.addRow(new Object[]{
-                modelProdutos.getIdProduto(),
-                modelProdutos.getProNome(),
-                lb_quantidade.getText(),
-                modelProdutos.getProValor(),
-                quantidade * modelProdutos.getProValor()
-            });
-            somarValorTotalProdutos();
-        }
-    }//GEN-LAST:event_bt_adicionarprodActionPerformed
+    }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
         // TODO add your handling code here:
-        int codigoVenda = 0, codigoProduto = 0;
-        double desconto = 0;
-        listaModelVendasProdutoses = new ArrayList<>();
-
-        if (lb_observacao.getText().equals("")) {
-            desconto = 0;
-        } else {
-            desconto = Double.parseDouble(lb_observacao.getText());
-        }
-        if (!lb_numero_venda.getText().equals("")) {
-            modelVendas.setIdVenda(Integer.parseInt(lb_numero_venda.getText()));
-        }
-        modelVendas.setCliente(Integer.parseInt(lb_codigo_cliente.getText()));
-        try {
-            modelVendas.setVenDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
-        } catch (Exception e) {
-        }
-        modelVendas.setVenValorLiquido(Double.parseDouble(lb_valor_total.getText()));
-        modelVendas.setVenValorBruto(Double.parseDouble(lb_valor_total.getText()) + desconto);
-
-        modelVendas.setVenDesconto(desconto);
-
-        if (alterarSalvar.equals("salvar")) {
-            //salva
-            codigoVenda = controllerVendas.salvarVendasController(modelVendas);
-            if (codigoVenda > 0) {
-                JOptionPane.showMessageDialog(this, "Venda salva com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar a venda", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-            int cont = tb_ProdutosVenda.getRowCount();
-            for (int i = 0; i < cont; i++) {
-                codigoProduto = (int) tb_ProdutosVenda.getValueAt(i, 0);
-                modelVendasProdutos = new ModelVendasProdutos();
-                modelProdutos = new ModelProdutos();
-                modelVendasProdutos.setProduto(codigoProduto);
-                modelVendasProdutos.setVendas(codigoVenda);
-                modelVendasProdutos.setVenProValor((double) tb_ProdutosVenda.getValueAt(i, 3));
-                modelVendasProdutos.setVenProQuantidade(Integer.parseInt(tb_ProdutosVenda.getValueAt(i, 2).toString()));
-                //produto
-                modelProdutos.setIdProduto(codigoProduto);
-                modelProdutos.setProEstoque(controllerProdutos.retornarProdutoController(codigoProduto).getProEstoque()
-                    - Integer.parseInt(tb_ProdutosVenda.getValueAt(i, 2).toString()));
-                listaModelVendasProdutoses.add(modelVendasProdutos);
-                listaModelProdutoses.add(modelProdutos);
-            }
-            //Salvar os produtos da venda
-            if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutoses)) {
-                //alterar o estoque de produtos
-                controllerProdutos.alterarEstoqueProdutoController(listaModelProdutoses);
-                //                JOptionPane.showMessageDialog(this, "produtos da venda salvo com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
-                carregarVendas();
-                limparFormulario();
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar a produtos", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } else {
-            //altera
-            //INICIO RETORNAR PARA O ESTOQUE E EXCLUIR PRODUTOS DA VENDA
-            int linha = tb_vendas.getSelectedRow();
-            codigoVenda = (int) tb_vendas.getValueAt(linha, 0);
-            listaModelProdutoses = new ArrayList<>();
-            listaModelProdutosVendasProdutoses = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
-            for (int i = 0; i < listaModelProdutosVendasProdutoses.size(); i++) {
-                modelProdutos = new ModelProdutos();
-                modelProdutos.setIdProduto(listaModelProdutosVendasProdutoses.get(i).getModelProdutos().getIdProduto());
-                modelProdutos.setProEstoque(
-                    listaModelProdutosVendasProdutoses.get(i).getModelProdutos().getProEstoque()
-                    + listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVenProQuantidade());
-                listaModelProdutoses.add(modelProdutos);
-            }
-            if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutoses)) {
-                if (controllerVendasProdutos.excluirVendasProdutosController(codigoVenda)) {
-                    this.carregarVendas();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-            //FIM RETORNAR PARA O ESTOQUE E EXCLUIR PRODUTOS DA VENDA
-
-            if (controllerVendas.atualizarVendasController(modelVendas)) {
-                JOptionPane.showMessageDialog(this, "Venda alterada com sucesso!", "Atenção", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao alterar a venda", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-            //adicionar produtos na lista para salvar
-            int cont = tb_ProdutosVenda.getRowCount();
-            for (int i = 0; i < cont; i++) {
-                codigoProduto = (int) tb_ProdutosVenda.getValueAt(i, 0);
-                modelVendasProdutos = new ModelVendasProdutos();
-                modelProdutos = new ModelProdutos();
-                modelVendasProdutos.setProduto(codigoProduto);
-                modelVendasProdutos.setVendas(codigoVenda);
-                modelVendasProdutos.setVenProValor((double) tb_ProdutosVenda.getValueAt(i, 3));
-                modelVendasProdutos.setVenProQuantidade(Integer.parseInt(tb_ProdutosVenda.getValueAt(i, 2).toString()));
-                //produto
-                modelProdutos.setIdProduto(codigoProduto);
-                modelProdutos.setProEstoque(controllerProdutos.retornarProdutoController(codigoProduto).getProEstoque()
-                    - Integer.parseInt(tb_ProdutosVenda.getValueAt(i, 2).toString()));
-                listaModelVendasProdutoses.add(modelVendasProdutos);
-                listaModelProdutoses.add(modelProdutos);
-            }
-            //salvar os produtos da venda
-            if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutoses)) {
-                controllerProdutos.alterarEstoqueProdutoController(listaModelProdutoses);
-                carregarVendas();
-                limparFormulario();
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar a produtos", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        bt_salvar.setEnabled(false);
     }//GEN-LAST:event_bt_salvarActionPerformed
 
-    private void bt_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_NovoActionPerformed
-        // TODO add your handling code here
-        bt_salvar.setEnabled(true);
-        alterarSalvar = "salvar";
-        limparFormulario();
-    }//GEN-LAST:event_bt_NovoActionPerformed
-
-    private void lb_observacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lb_observacaoFocusLost
+    private void txt_codcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codcliActionPerformed
         // TODO add your handling code here:
-        somarValorTotalProdutos();
-    }//GEN-LAST:event_lb_observacaoFocusLost
+    }//GEN-LAST:event_txt_codcliActionPerformed
 
-    private void bt_remove_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_remove_produtoActionPerformed
+    private void txt_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesquisaActionPerformed
         // TODO add your handling code here:
-        int linha = tb_ProdutosVenda.getSelectedRow();
-        DefaultTableModel modelo = (DefaultTableModel) tb_ProdutosVenda.getModel();
-        modelo.removeRow(linha);
-        somarValorTotalProdutos();
-    }//GEN-LAST:event_bt_remove_produtoActionPerformed
+    }//GEN-LAST:event_txt_pesquisaActionPerformed
 
-    private void cbb_nome_produtoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbb_nome_produtoPopupMenuWillBecomeInvisible
+    private void bt_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_pesquisaActionPerformed
         // TODO add your handling code here:
-        if (cbb_nome_produto.isVisible()) {
-            preencherCodigoProdutoPeloCombobox();
-        }
-    }//GEN-LAST:event_cbb_nome_produtoPopupMenuWillBecomeInvisible
-
-    private void cbb_nome_clientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbb_nome_clientePopupMenuWillBecomeInvisible
-        // TODO add your handling code here:
-        if (cbb_nome_cliente.isPopupVisible()) {
-            preencherCodigoClientePeloCombobox();
-        }
-    }//GEN-LAST:event_cbb_nome_clientePopupMenuWillBecomeInvisible
-
-    private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        // TODO add your handling code here:
-        int linha = tb_vendas.getSelectedRow();
-        int codigoVenda = (int) tb_vendas.getValueAt(linha, 0);
-        listaModelProdutoses = new ArrayList<>();
-        listaModelProdutosVendasProdutoses = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
-        for (int i = 0; i < listaModelProdutosVendasProdutoses.size(); i++) {
-            modelProdutos = new ModelProdutos();
-            modelProdutos.setIdProduto(listaModelProdutosVendasProdutoses.get(i).getModelProdutos().getIdProduto());
-            modelProdutos.setProEstoque(
-                listaModelProdutosVendasProdutoses.get(i).getModelProdutos().getProEstoque()
-                + listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVenProQuantidade());
-            listaModelProdutoses.add(modelProdutos);
-        }
-        if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutoses)) {
-            controllerVendasProdutos.excluirVendasProdutosController(codigoVenda);
-            if (controllerVendas.excluirVendasController(codigoVenda)) {
-                JOptionPane.showMessageDialog(this, "Venda excluida com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
-                this.carregarVendas();
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_bt_excluirActionPerformed
+    }//GEN-LAST:event_bt_pesquisaActionPerformed
 
     private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
         // TODO add your handling code here:
-        //habilitar botão novo para alterar
-        bt_salvar.setEnabled(true);
-        //setar variavel alterar salvar´para alterar
-        alterarSalvar = "alterar";
-        int linha = tb_vendas.getSelectedRow();
-        int codigoVenda = (int) tb_vendas.getValueAt(linha, 0);
-        listaModelProdutosVendasProdutoses = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
-        DefaultTableModel modelo = (DefaultTableModel) tb_ProdutosVenda.getModel();
-        modelo.setNumRows(0);
-        for (int i = 0; i < listaModelProdutosVendasProdutoses.size(); i++) {
-            lb_numero_venda.setText(String.valueOf(listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVendas()));
-            modelo.addRow(new Object[]{
-                listaModelProdutosVendasProdutoses.get(i).getModelProdutos().getIdProduto(),
-                listaModelProdutosVendasProdutoses.get(i).getModelProdutos().getProNome(),
-                listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVenProQuantidade(),
-                listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVenProValor(),
-                listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVenProQuantidade()
-                * listaModelProdutosVendasProdutoses.get(i).getModelVendasProdutos().getVenProValor()
-            });
-        }
-        somarValorTotalProdutos();
-        jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_bt_alterarActionPerformed
 
     private void bt_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_imprimirActionPerformed
-        int linha = tb_vendas.getSelectedRow();
-        int codigoVenda = (int) tb_vendas.getValueAt(linha, 0);
-        final ViewAguarde carregando = new ViewAguarde();
-        carregando.setVisible(true);
-        Thread t = new Thread() {
-
-            public void run() {
-                //metodo de impimir
-                try {
-                    controllerVendas.gerarRelatorioVenda(codigoVenda);
-                    carregando.dispose();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório! /n " + e, "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-        };
-        t.start();
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_imprimirActionPerformed
 
-    private void lb_descontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lb_descontoFocusLost
+    private void txt_dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lb_descontoFocusLost
+    }//GEN-LAST:event_txt_dataActionPerformed
 
-    private void lb_dataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lb_dataFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lb_dataFocusLost
-
-    private void cbb_nome_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_nome_produtoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbb_nome_produtoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewVendas().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Painel_Cadastro;
-    private javax.swing.JButton bt_Novo;
-    private javax.swing.JButton bt_adicionarprod;
+    private javax.swing.JPanel Cadastro;
+    private javax.swing.JButton bt_adicionar;
     private javax.swing.JButton bt_alterar;
     private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_imprimir;
-    private javax.swing.JButton bt_remove_produto;
+    private javax.swing.JButton bt_novo;
+    private javax.swing.JButton bt_pesquisa;
+    private javax.swing.JButton bt_remove;
     private javax.swing.JButton bt_salvar;
-    private javax.swing.JButton btn_pesquisa;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField lb_codigo_cliente;
-    private javax.swing.JTextField lb_codigo_produto;
-    private javax.swing.JTextField lb_data;
-    private javax.swing.JTextField lb_desconto;
-    private javax.swing.JTextField lb_numero_venda;
-    private javax.swing.JTextField lb_observacao;
-    private javax.swing.JTextField lb_pesquisa;
-    private javax.swing.JTextField lb_quantidade;
-    private javax.swing.JTextField lb_valor_total;
-    private javax.swing.JTable tb_ProdutosVenda;
-    private javax.swing.JTable tb_vendas;
-    private javax.swing.JLabel txt_codigo_cliente;
-    private javax.swing.JLabel txt_codigo_produto;
-    private javax.swing.JLabel txt_data;
-    private javax.swing.JLabel txt_desconto;
-    private javax.swing.JLabel txt_nome_cliente;
-    private javax.swing.JLabel txt_nome_produto;
-    private javax.swing.JLabel txt_numero_venda;
-    private javax.swing.JLabel txt_observacao;
-    private javax.swing.JLabel txt_pesquisa;
-    private javax.swing.JLabel txt_quantidade;
-    private javax.swing.JLabel txt_valor_total;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JLabel lb_cliente;
+    private javax.swing.JLabel lb_codprod;
+    private javax.swing.JLabel lb_data;
+    private javax.swing.JLabel lb_desconto;
+    private javax.swing.JLabel lb_nomecliente;
+    private javax.swing.JLabel lb_nomeproduto;
+    private javax.swing.JLabel lb_numvenda;
+    private javax.swing.JLabel lb_obs;
+    private javax.swing.JLabel lb_pesquisa;
+    private javax.swing.JLabel lb_quantidade;
+    private javax.swing.JLabel lb_total;
+    private javax.swing.JTextField txt_codcli;
+    private javax.swing.JTextField txt_codprod;
+    private javax.swing.JFormattedTextField txt_data;
+    private javax.swing.JTextField txt_desconto;
+    private javax.swing.JTextField txt_nomecliente;
+    private javax.swing.JTextField txt_nomeproduto;
+    private javax.swing.JTextField txt_numvenda;
+    private javax.swing.JTextField txt_obs;
+    private javax.swing.JTextField txt_pesquisa;
+    private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
 }

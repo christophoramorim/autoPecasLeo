@@ -1,22 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package View;
-import Model.Login;
-import javax.swing.JOptionPane;
-/**
- *
- * @author Victor Hugo
- */
-public class ViewLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewLogin
-     */
+package View;
+import DAO.LoginDAO;
+import DAO.UsuarioDAO;
+import Model.Usuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+public class ViewLogin extends javax.swing.JFrame {
+    
+    Usuario usuario;
+    LoginDAO loginDAO;
+    
     public ViewLogin() {
+        usuario = new Usuario();
+        loginDAO = new LoginDAO();
         initComponents();
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+        txtUsuario.requestFocus();
     }
 
     /**
@@ -34,7 +37,7 @@ public class ViewLogin extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
+        lbl_erro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,8 +54,6 @@ public class ViewLogin extends javax.swing.JFrame {
 
         jLabel3.setText("Auto Peças Leo");
 
-        btnCancelar.setText("Cancelar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,19 +62,22 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                                .addComponent(lbl_erro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEntrar))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addComponent(jLabel3)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,17 +95,45 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntrar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addComponent(lbl_erro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-               if(txtSenha.getText().isEmpty() || txtUsuario.getText().isEmpty()) {
-                   JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-            txtUsuario.requestFocus();
+        try {
+            if(txtUsuario.getText().isEmpty()) 
+            {
+                lbl_erro.setText("Login não preenchido.");
+                lbl_erro.setVisible(true);
+                txtUsuario.requestFocus();
+            }
+            else if (txtSenha.getText().isEmpty()) 
+            {
+                lbl_erro.setText("Senha não preenchido.");
+                lbl_erro.setVisible(true);
+                txtSenha.requestFocus();
+            }
+            else 
+            {
+                usuario = loginDAO.buscaLogin(txtUsuario.getText(), txtSenha.getText());
+                if(usuario == null)
+                {
+                    JOptionPane.showMessageDialog(null, "Credenciais inválidos!","Erro",JOptionPane.ERROR_MESSAGE);
+                    txtUsuario.setText("");
+                    txtSenha.setText("");
+                    txtUsuario.requestFocus();
+                }
+                else
+                {
+                    ViewPrincipal principal = new ViewPrincipal(usuario);
+                    this.dispose();
+                }
+            }
+        } catch (SQLException e){
+            Logger.getLogger(ViewLogin.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
@@ -111,11 +143,11 @@ public class ViewLogin extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lbl_erro;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

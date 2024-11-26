@@ -27,20 +27,13 @@ CREATE TABLE usuario(
   senha   varchar(255),
 PRIMARY KEY (Id));
 
+ALTER TABLE usuario CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+
 insert into usuario values (0,"gabriel","111-111-111-11","vendedor","gab","123")
 
 select * from usuario
 
-    private int id;
-    private String nome;
-    private String descricao;
-    private String ano_faixa;
-    private String modelo_carro;
-    private String marca;
-    private String validade;
-    private int quantidade;
-    private double preco_compra;
-    private double Preco_roi;
+SELECT * FROM usuario WHERE login COLLATE utf8_bin="admin" AND senha COLLATE utf8_bin="123"
 
 CREATE TABLE produto(
   id   int(5) auto_increment, 

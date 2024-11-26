@@ -5,7 +5,8 @@
  */
 package Controler;
 
-import View.ViewPrincipal;
+import View.ViewLogin;
+//import View.ViewPrincipal;
 
 public class AutoPecasLeo {
 
@@ -13,7 +14,8 @@ public class AutoPecasLeo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ViewPrincipal principal = new ViewPrincipal();
+        //ViewPrincipal principal = new ViewPrincipal();
+        ViewLogin login = new ViewLogin();
     }
     
 }

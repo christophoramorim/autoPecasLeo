@@ -1,6 +1,7 @@
 
 package View;
 
+import Model.Usuario;
 import javax.swing.JFrame;
 import View.ViewCliente;
 import View.ViewUsuario;
@@ -9,13 +10,15 @@ import View.ViewVendas;
 
 public class ViewPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewPrincipal
-     */
-    public ViewPrincipal() {
+    public ViewPrincipal(Usuario usuario) {
         initComponents();
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        if(usuario.getCargo().equals("VENDEDOR"))
+        {
+            mni_cliente.setVisible(false);
+        }
     }
 
     /**
@@ -177,7 +180,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewPrincipal().setVisible(true);
+                new ViewPrincipal(null).setVisible(true);
             }
         });
     }

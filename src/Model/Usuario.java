@@ -1,72 +1,72 @@
 package Model;
 
 public class Usuario {
-    private int idUsuario;
-    private String usuNome;
-    private String usuCpf;
-    private String usuCargo;
-    private String usuLogin;
-    private String usuSenha;
+    private int Id;
+    private String Nome;
+    private String Cpf;
+    private String Cargo;
+    private String Login;
+    private String Senha;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String usuNome, String usuCpf, String usuCargo, String usuLogin, String usuSenha) {
-        this.idUsuario = idUsuario;
-        this.usuNome = usuNome;
-        this.usuCpf = usuCpf;
-        this.usuCargo = usuCargo;
-        this.usuLogin = usuLogin;
-        this.usuSenha = usuSenha;
+    public Usuario(int Id, String Nome, String Cpf, String Cargo, String Login, String Senha) {
+        this.Id = Id;
+        this.Nome = Nome;
+        this.Cpf = Cpf;
+        this.Cargo = Cargo;
+        this.Login = Login;
+        this.Senha = Senha;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public int getId() {
+        return Id;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
-    public String getUsuNome() {
-        return usuNome;
+    public String getNome() {
+        return Nome;
     }
 
-    public void setUsuNome(String usuNome) {
-        this.usuNome = usuNome;
+    public void setNome(String Nome) {
+        this.Nome = Nome;
     }
 
-    public String getUsuCpf() {
-        return usuCpf;
+    public String getCpf() {
+        return Cpf;
     }
 
-    public void setUsuCpf(String usuCpf) {
-        this.usuCpf = usuCpf;
+    public void setCpf(String Cpf) {
+        this.Cpf = Cpf;
     }
 
-    public String getUsuCargo() {
-        return usuCargo;
+    public String getCargo() {
+        return Cargo;
     }
 
-    public void setUsuCargo(String usuCargo) {
-        this.usuCargo = usuCargo;
+    public void setCargo(String Cargo) {
+        this.Cargo = Cargo;
     }
 
-    public String getUsuLogin() {
-        return usuLogin;
+    public String getLogin() {
+        return Login;
     }
 
-    public void setUsuLogin(String usuLogin) {
-        this.usuLogin = usuLogin;
+    public void setLogin(String Login) {
+        this.Login = Login;
     }
 
-    public String getUsuSenha() {
-        return usuSenha;
+    public String getSenha() {
+        return Senha;
     }
 
-    public void setUsuSenha(String usuSenha) {
-        this.usuSenha = usuSenha;
+    public void setSenha(String Senha) {
+        this.Senha = Senha;
     }
-    
-    
+
+   
 }

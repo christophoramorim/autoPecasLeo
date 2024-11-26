@@ -246,12 +246,12 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
                 }
             }
         
-            usuario.setIdUsuario(id);
-            usuario.setUsuNome(this.txt_nome.getText());
-            usuario.setUsuCpf(this.txt_cpf.getText());
-            usuario.setUsuCargo(this.cbb_cargo.getSelectedItem().toString());
-            usuario.setUsuLogin(this.txt_login.getText());
-            usuario.setUsuSenha(this.txt_senha.getText());
+            usuario.setId(id);
+            usuario.setNome(this.txt_nome.getText());
+            usuario.setCpf(this.txt_cpf.getText());
+            usuario.setCargo(this.cbb_cargo.getSelectedItem().toString());
+            usuario.setLogin(this.txt_login.getText());
+            usuario.setSenha(this.txt_senha.getText());
 
             if (this.alterarSalvar.equals("salvar")) {
                 try {
@@ -286,7 +286,7 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
         //identifica o registro selecionado
         int linha = tb_usuario.getSelectedRow();
-        int codigoUsuario = (int) tb_usuario.getValueAt(linha, 0);
+        int id = (int) tb_usuario.getValueAt(linha, 0);
         
         if(txt_codigo.getText().isEmpty())
         {
@@ -295,7 +295,7 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
         else
         {
             usuario = new Usuario();
-            usuario.setIdUsuario(Integer.parseInt(txt_codigo.getText()));
+            usuario.setId(Integer.parseInt(txt_codigo.getText()));
             int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
             if (confirm == 0)
             {
@@ -316,23 +316,23 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
     private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
         //identifica o registro selecionado
         int linha = tb_usuario.getSelectedRow();
-        int codigo = (int) tb_usuario.getValueAt(linha, 0);
+        int id = (int) tb_usuario.getValueAt(linha, 0);
         alterarSalvar = "alterar";
         
         usuario = new Usuario();
         
         try {
-            usuario = usuarioDAO.BuscarUsuarioPorId(String.valueOf(codigo));
+            usuario = usuarioDAO.BuscarUsuarioPorId(String.valueOf(id));
         } catch (Exception e) {
             Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
         }
         
-        txt_codigo.setText(String.valueOf(usuario.getIdUsuario()));
-        txt_nome.setText(usuario.getUsuNome());
-        txt_cpf.setText(usuario.getUsuCpf());
-        cbb_cargo.setSelectedItem(usuario.getUsuCargo());
-        txt_login.setText(usuario.getUsuLogin());
-        txt_senha.setText(usuario.getUsuSenha());        
+        txt_codigo.setText(String.valueOf(usuario.getId()));
+        txt_nome.setText(usuario.getNome());
+        txt_cpf.setText(usuario.getCpf());
+        cbb_cargo.setSelectedItem(usuario.getCargo());
+        txt_login.setText(usuario.getLogin());
+        txt_senha.setText(usuario.getSenha());        
         desabilitaHabilitaCampos(true);
     }//GEN-LAST:event_bt_alterarActionPerformed
 
@@ -350,9 +350,9 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
             for (Usuario usuario : listaModelUsuarios) {
                 modelo.addRow(new Object[]{
-                    usuario.getIdUsuario(),
-                    usuario.getUsuNome(),
-                    usuario.getUsuCpf()
+                    usuario.getId(),
+                    usuario.getNome(),
+                    usuario.getCpf()
                 });            
             }
         }catch (SQLException e) {

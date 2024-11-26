@@ -10,16 +10,15 @@ public class UsuarioDAO {
     PreparedStatement pst;
     String sql;
     
-    public void Salvar(Usuario user) throws SQLException 
-    {        
+    public void Salvar(Usuario user) throws SQLException {        
         sql = "insert into usuario values(?,?,?,?,?,?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
-        pst.setString(2, user.getUsuNome());
-        pst.setString(3, user.getUsuCpf());
-        pst.setString(4, user.getUsuCargo());
-        pst.setString(5, user.getUsuLogin());
-        pst.setString(6, user.getUsuSenha());
+        pst.setString(2, user.getNome());
+        pst.setString(3, user.getCpf());
+        pst.setString(4, user.getCargo());
+        pst.setString(5, user.getLogin());
+        pst.setString(6, user.getSenha());
         pst.execute();
         pst.close();
     }
@@ -45,8 +44,7 @@ public class UsuarioDAO {
         return listaUsuarios;
     }
     
-    public Usuario BuscarUsuarioPorId(String id) throws SQLException 
-    {
+    public Usuario BuscarUsuarioPorId(String id) throws SQLException  {
         sql = "select * from usuario where id = " + id;
         pst = Conexao.getInstance().prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
@@ -66,27 +64,25 @@ public class UsuarioDAO {
         return user;
     }
     
-    public void Deletar(Usuario user) throws SQLException 
-    {
+    public void Deletar(Usuario user) throws SQLException {
         sql = "delete from usuario where id=?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, user.getIdUsuario());
+        pst.setInt(1, user.getId());
         pst.execute();
         pst.close();
     }
     
-    public void Editar(Usuario user) throws SQLException 
-    {
+    public void Editar(Usuario user) throws SQLException {
         sql = "update usuario set nome=?, cpf=?, cargo=?, login=?,"
             + " senha=? where id=?";
         
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setString(1, user.getUsuNome());
-        pst.setString(2, user.getUsuCpf());
-        pst.setString(3, user.getUsuCargo());
-        pst.setString(4, user.getUsuLogin());
-        pst.setString(5, user.getUsuSenha());
-        pst.setInt(6, user.getIdUsuario());
+        pst.setString(1, user.getNome());
+        pst.setString(2, user.getCpf());
+        pst.setString(3, user.getCargo());
+        pst.setString(4, user.getLogin());
+        pst.setString(5, user.getSenha());
+        pst.setInt(6, user.getId());
         pst.execute();
         pst.close();
     }

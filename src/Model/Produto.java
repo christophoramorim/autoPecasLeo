@@ -2,110 +2,111 @@
 package Model;
 
 public class Produto {
-    private int Prdcodigo;
-    private String Prdnome;
-    private String Prddescricao;
-    private String Prdano_faixa;
-    private String Prdmodelo_carro;
-    private String Prdmarca;
-    private String Prdvalidade;
-    private int Prdquantidade;
-    private double Prdpreco_compra;
-    private double PrdPreco_roi;
+    private int id;
+    private String nome;
+    private String descricao;
+    private String ano_faixa;
+    private String modelo_carro;
+    private String marca;
+    private String validade;
+    private int quantidade;
+    private double preco_compra;
+    private double Preco_roi;
 
     public Produto() {
     }
 
-    public Produto(int Prdcodigo, String Prdnome, String Prddescricao, String Prdano_faixa, String Prdmodelo_carro, String Prdmarca, String Prdvalidade, int Prdquantidade, double Prdpreco_compra, double PrdPreco_roi) {
-        this.Prdcodigo = Prdcodigo;
-        this.Prdnome = Prdnome;
-        this.Prddescricao = Prddescricao;
-        this.Prdano_faixa = Prdano_faixa;
-        this.Prdmodelo_carro = Prdmodelo_carro;
-        this.Prdmarca = Prdmarca;
-        this.Prdvalidade = Prdvalidade;
-        this.Prdquantidade = Prdquantidade;
-        this.Prdpreco_compra = Prdpreco_compra;
-        this.PrdPreco_roi = PrdPreco_roi;
+    public Produto(int id, String nome, String descricao, String dano_faixa, String modelo_carro, String marca, String validade, int quantidade, double preco_compra, double Preco_roi) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.ano_faixa = dano_faixa;
+        this.modelo_carro = modelo_carro;
+        this.marca = marca;
+        this.validade = validade;
+        this.quantidade = quantidade;
+        this.preco_compra = preco_compra;
+        this.Preco_roi = Preco_roi;
     }
 
-    public int getPrdcodigo() {
-        return Prdcodigo;
+    public int getId() {
+        return id;
     }
 
-    public void setPrdcodigo(int Prdcodigo) {
-        this.Prdcodigo = Prdcodigo;
+    public String getNome() {
+        return nome;
     }
 
-    public String getPrdnome() {
-        return Prdnome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setPrdnome(String Prdnome) {
-        this.Prdnome = Prdnome;
+    public String getAno_faixa() {
+        return ano_faixa;
     }
 
-    public String getPrddescricao() {
-        return Prddescricao;
+    public String getModelo_carro() {
+        return modelo_carro;
     }
 
-    public void setPrddescricao(String Prddescricao) {
-        this.Prddescricao = Prddescricao;
+    public String getMarca() {
+        return marca;
     }
 
-    public String getPrdano_faixa() {
-        return Prdano_faixa;
+    public String getValidade() {
+        return validade;
     }
 
-    public void setPrdano_faixa(String Prdano_faixa) {
-        this.Prdano_faixa = Prdano_faixa;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public String getPrdmodelo_carro() {
-        return Prdmodelo_carro;
+    public double getPreco_compra() {
+        return preco_compra;
     }
 
-    public void setPrdmodelo_carro(String Prdmodelo_carro) {
-        this.Prdmodelo_carro = Prdmodelo_carro;
+    public double getPreco_roi() {
+        return Preco_roi;
     }
 
-    public String getPrdmarca() {
-        return Prdmarca;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setPrdmarca(String Prdmarca) {
-        this.Prdmarca = Prdmarca;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getPrdvalidade() {
-        return Prdvalidade;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public void setPrdvalidade(String Prdvalidade) {
-        this.Prdvalidade = Prdvalidade;
+    public void setAno_faixa(String dano_faixa) {
+        this.ano_faixa = dano_faixa;
     }
 
-    public int getPrdquantidade() {
-        return Prdquantidade;
+    public void setModelo_carro(String modelo_carro) {
+        this.modelo_carro = modelo_carro;
     }
 
-    public void setPrdquantidade(int Prdquantidade) {
-        this.Prdquantidade = Prdquantidade;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
-    public double getPrdpreco_compra() {
-        return Prdpreco_compra;
+    public void setValidade(String validade) {
+        this.validade = validade;
     }
 
-    public void setPrdpreco_compra(double Prdpreco_compra) {
-        this.Prdpreco_compra = Prdpreco_compra;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public double getPrdPreco_roi() {
-        return PrdPreco_roi;
+    public void setPreco_compra(double preco_compra) {
+        this.preco_compra = preco_compra;
     }
 
-    public void setPrdPreco_roi(double PrdPreco_roi) {
-        this.PrdPreco_roi = PrdPreco_roi;
+    public void setPreco_roi(double Preco_roi) {
+        this.Preco_roi = Preco_roi;
     }
+    
 }

@@ -15,15 +15,15 @@ public class ProdutoDAO {
         sql = "insert into produto values(?,?,?,?,?,?,?,?,?,?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
-        pst.setString(2, produto.getPrdnome());
-        pst.setString(3, produto.getPrddescricao());
-        pst.setString(4, produto.getPrdano_faixa());
-        pst.setString(5, produto.getPrdmodelo_carro());
-        pst.setString(6, produto.getPrdmarca());
-        pst.setString(7, produto.getPrdvalidade());
-        pst.setInt(8, produto.getPrdquantidade());
-        pst.setDouble(9, produto.getPrdpreco_compra());
-        pst.setDouble(10, produto.getPrdPreco_roi());
+        pst.setString(2, produto.getNome());
+        pst.setString(3, produto.getDescricao());
+        pst.setString(4, produto.getAno_faixa());
+        pst.setString(5, produto.getModelo_carro());
+        pst.setString(6, produto.getMarca());
+        pst.setString(7, produto.getValidade());
+        pst.setInt(8, produto.getQuantidade());
+        pst.setDouble(9, produto.getPreco_compra());
+        pst.setDouble(10, produto.getPreco_roi());
         pst.execute();
         pst.close();
     }
@@ -36,16 +36,16 @@ public class ProdutoDAO {
 
         while (rs.next()) {
             Produto pro = new Produto(
-                rs.getInt("Prdcodigo"),
-                rs.getString("Prdnome"),
-                rs.getString("Prddescricao"),
-                rs.getString("Prdano_faixa"),
-                rs.getString("Prdmodelo_carro"),
-                rs.getString("Prdmarca"),
-                rs.getString("Prdvalidade"),
-                rs.getInt("Prdquantidade"),
-                rs.getDouble("Prdpreco_compra"),
-                rs.getDouble("PrdPreco_roi")
+                rs.getInt("id"),
+                rs.getString("nome"),
+                rs.getString("descricao"),
+                rs.getString("ano_faixa"),
+                rs.getString("modelo_carro"),
+                rs.getString("marca"),
+                rs.getString("validade"),
+                rs.getInt("quantidade"),
+                rs.getDouble("preco_compra"),
+                rs.getDouble("Preco_roi")
             );
             listaProdutos.add(pro);
         }
@@ -63,16 +63,16 @@ public class ProdutoDAO {
         while (rs.next())
         {
             pro = new Produto(
-                rs.getInt("Prdcodigo"),
-                rs.getString("Prdnome"),
-                rs.getString("Prddescricao"),
-                rs.getString("Prdano_faixa"),
-                rs.getString("Prdmodelo_carro"),
-                rs.getString("Prdmarca"),
-                rs.getString("Prdvalidade"),
-                rs.getInt("Prdquantidade"),
-                rs.getDouble("Prdpreco_compra"),
-                rs.getDouble("PrdPreco_roi")
+                rs.getInt("id"),
+                rs.getString("nome"),
+                rs.getString("descricao"),
+                rs.getString("ano_faixa"),
+                rs.getString("modelo_carro"),
+                rs.getString("marca"),
+                rs.getString("validade"),
+                rs.getInt("quantidade"),
+                rs.getDouble("preco_compra"),
+                rs.getDouble("Preco_roi")
             );
         }
         pst.close();
@@ -83,7 +83,7 @@ public class ProdutoDAO {
     {
         sql = "delete from produto where id=?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, produto.getPrdcodigo());
+        pst.setInt(1, produto.getId());
         pst.execute();
         pst.close();
     }
@@ -94,16 +94,16 @@ public class ProdutoDAO {
             + " marca=?, validade=?, quantidade=?, preco_compra=? preco_roi=? where id=?";
         
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setString(1, produto.getPrdnome());
-        pst.setString(2, produto.getPrddescricao());
-        pst.setString(3, produto.getPrdano_faixa());
-        pst.setString(4, produto.getPrdmodelo_carro());
-        pst.setString(5, produto.getPrdmarca());
-        pst.setString(6, produto.getPrdvalidade());
-        pst.setInt(7, produto.getPrdquantidade());
-        pst.setDouble(8, produto.getPrdpreco_compra());
-        pst.setDouble(9, produto.getPrdPreco_roi());
-        pst.setInt(10, produto.getPrdcodigo());
+        pst.setString(1, produto.getNome());
+        pst.setString(2, produto.getDescricao());
+        pst.setString(3, produto.getAno_faixa());
+        pst.setString(4, produto.getModelo_carro());
+        pst.setString(5, produto.getMarca());
+        pst.setString(6, produto.getValidade());
+        pst.setInt(7, produto.getQuantidade());
+        pst.setDouble(8, produto.getPreco_compra());
+        pst.setDouble(9, produto.getPreco_roi());
+        pst.setInt(10, produto.getId());
         pst.execute();
         pst.close();
     }

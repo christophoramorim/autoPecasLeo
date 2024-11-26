@@ -30,3 +30,31 @@ PRIMARY KEY (Id));
 insert into usuario values (0,"gabriel","111-111-111-11","vendedor","gab","123")
 
 select * from usuario
+
+    private int id;
+    private String nome;
+    private String descricao;
+    private String ano_faixa;
+    private String modelo_carro;
+    private String marca;
+    private String validade;
+    private int quantidade;
+    private double preco_compra;
+    private double Preco_roi;
+
+CREATE TABLE produto(
+  id   int(5) auto_increment, 
+  nome     varchar(45),
+  descricao varchar(255),
+  ano_faixa   varchar(4),
+  modelo_carro   varchar(255),
+  marca   varchar(255),
+  validade       varchar(225),
+  quantidade      int(5), 
+  preco_compra decimal(10,2),
+  Preco_roi decimal(10,2),
+PRIMARY KEY (Id));
+
+insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX","2024","GOL","VW","2024-11-25",100,80.00,150.00)
+
+select * from produto

@@ -4,16 +4,25 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Model.Produto;
+import DAO.ProdutoDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ViewProduto extends javax.swing.JInternalFrame {
-    ArrayList<Produto> listaModelClientes = new ArrayList<>();
-    
+    ArrayList<Produto> listaModelProdutos = new ArrayList<>();
     String salvarAlterar;
-    
     Produto produto; 
+    ProdutoDAO produtoDAO; 
+    
+    public ViewProduto() {
+        produtoDAO = new ProdutoDAO();
+        initComponents();
+        this.setVisible(true);
+        this.desabilitaHabilitaCampos(false);
+        this.limparCampos();
+        this.carregarProdutos();
+    }
     
 
     /**
@@ -39,7 +48,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         lb_cep = new javax.swing.JLabel();
         lb_telefone = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tb_cliente = new javax.swing.JTable();
+        tb_produto = new javax.swing.JTable();
         bt_salvar = new javax.swing.JButton();
         lb_cpf = new javax.swing.JLabel();
         txt_Ano = new javax.swing.JFormattedTextField();
@@ -73,7 +82,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
 
         lb_telefone.setText("Roi:");
 
-        tb_cliente.setModel(new javax.swing.table.DefaultTableModel(
+        tb_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,12 +98,12 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tb_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        tb_produto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tb_clienteMouseClicked(evt);
+                tb_produtoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tb_cliente);
+        jScrollPane1.setViewportView(tb_produto);
 
         bt_salvar.setText("Salvar");
         bt_salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -283,43 +292,117 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                 }
             }
             
-            produto.setPrdcodigo(id);
-            produto.setPrdnome(this.txt_nome.getText());
-            produto.setPrddescricao(this.txt_Descricao.getText());
-            produto.setPrdano_faixa(this.txt_Ano.getText());
-            produto.setPrdmodelo_carro(this.txt_Modelo.getText());
-            produto.setPrdmarca(this.txt_Marca.getText());
-            produto.setPrdquantidade(Integer.parseInt(this.txt_Qtd.getText()));
-            produto.setPrdpreco_compra(Integer.parseInt(this.txt_PrecoCompra.getText()));
-            produto.setPrdPreco_roi(Double.parseDouble(this.txt_Roi.getSelectedItem().toString()));
+            produto.setId(id);
+            produto.setNome(this.txt_nome.getText());
+            produto.setDescricao(this.txt_Descricao.getText());
+            produto.setAno_faixa(this.txt_Ano.getText());
+            produto.setModelo_carro(this.txt_Modelo.getText());
+            produto.setMarca(this.txt_Marca.getText());
+            produto.setQuantidade(Integer.parseInt(this.txt_Qtd.getText()));
+            produto.setPreco_compra(Integer.parseInt(this.txt_PrecoCompra.getText()));
+            produto.setPreco_roi(Double.parseDouble(this.txt_Roi.getSelectedItem().toString()));
 
+            //identificando qual operação que irá realizar no banco de dados
+            if (salvarAlterar.equals("salvar")) {
+                try {
+                    produtoDAO.Salvar(produto);
+                }catch(SQLException e){
+                    Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
 
-
+                JOptionPane.showMessageDialog(null, "Gravado com sucesso");
+                carregarProdutos();
+                this.limparCampos();
+                this.desabilitaHabilitaCampos(false);
+                
+            } else {
+                try {
+                    produtoDAO.Editar(produto);
+                }catch(SQLException e){
+                   Logger.getLogger(ViewProduto.class.getName()).log(Level.SEVERE, null, e);
+                   JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+                carregarProdutos();
+                this.limparCampos();
+                this.desabilitaHabilitaCampos(false);
+            }
         }
     }//GEN-LAST:event_bt_salvarActionPerformed
 
-    private void tb_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_clienteMouseClicked
+    private void tb_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_produtoMouseClicked
 
-    }//GEN-LAST:event_tb_clienteMouseClicked
+    }//GEN-LAST:event_tb_produtoMouseClicked
 
     private void txt_RoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RoiActionPerformed
 
     }//GEN-LAST:event_txt_RoiActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        // TODO add your handling code here:
+        this.desabilitaHabilitaCampos(false);
+        this.limparCampos();
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NovoActionPerformed
-        // TODO add your handling code here:
+        this.desabilitaHabilitaCampos(true);
+        this.limparCampos();
+        salvarAlterar = "salvar";
     }//GEN-LAST:event_btn_NovoActionPerformed
 
     private void btn_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AlterarActionPerformed
-        // TODO add your handling code here:
+        int linha = tb_produto.getSelectedRow();
+        int id = (int) tb_produto.getValueAt(linha, 0);
+        salvarAlterar = "alterar";
+       
+        produto = new Produto();        
+
+        try {
+            produto = produtoDAO.BuscarProdutoPorId(String.valueOf(id));
+        } catch (Exception e) {
+            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        // Preenche os campos com os dados do produto
+        txt_codigo.setText(String.valueOf(produto.getId()));
+        txt_nome.setText(produto.getNome());
+        txt_Descricao.setText(produto.getDescricao());
+        txt_Ano.setText(produto.getAno_faixa());
+        txt_Modelo.setText(produto.getModelo_carro());
+        txt_Marca.setText(produto.getMarca());
+        txt_Qtd.setSelectionEnd(produto.getQuantidade());
+        txt_PrecoCompra.setText(String.valueOf(produto.getPreco_compra()));
+        txt_Roi.setSelectedItem(produto.getQuantidade());
+        this.desabilitaHabilitaCampos(true);
     }//GEN-LAST:event_btn_AlterarActionPerformed
 
     private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
-        // TODO add your handling code here:
+        int linha = tb_produto.getSelectedRow();
+        int id = (int) tb_produto.getValueAt(linha, 0);
+        
+        if(txt_codigo.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Selecione um produto");
+        }
+        else
+        {
+            produto = new Produto();
+            produto.setId(Integer.parseInt(txt_codigo.getText()));
+            int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
+            if (confirm == 0)
+            {
+               try {
+                produtoDAO.Deletar(produto);
+            } catch (SQLException e) {
+                Logger.getLogger(ViewProduto.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, "ERRO: " + e);
+            }
+            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+            limparCampos();
+            carregarProdutos();
+            this.desabilitaHabilitaCampos(true);
+            }            
+        }
     }//GEN-LAST:event_btn_ExcluirActionPerformed
 
 
@@ -333,6 +416,42 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_PrecoCompra.setText("");
     }
     
+    private void desabilitaHabilitaCampos(boolean condicao) {
+        txt_nome.setEnabled(condicao);
+        txt_nome.setEnabled(condicao);
+        txt_Descricao.setEnabled(condicao);
+        txt_Ano.setEnabled(condicao);
+        txt_Modelo.setEnabled(condicao);
+        txt_Marca.setEnabled(condicao);
+        txt_Qtd.setEnabled(condicao);
+        txt_PrecoCompra.setEnabled(condicao);
+        bt_salvar.setEnabled(condicao);
+    }
+    
+    public void carregarProdutos() {
+        try {
+            listaModelProdutos = produtoDAO.listarTodosProdutos();
+            DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
+            modelo.setNumRows(0);           
+
+            for (Produto produto : listaModelProdutos) {
+                modelo.addRow(new Object[]{
+                    produto.getId(),
+                    produto.getNome(),
+                    produto.getDescricao(),
+                    produto.getAno_faixa(),
+                    produto.getModelo_carro(),
+                    produto.getMarca(),
+                    produto.getQuantidade(),
+                    produto.getPreco_compra(),
+                    produto.getPreco_roi()
+                });            
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar produtos: " + e.getMessage());
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -352,7 +471,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lb_nome;
     private javax.swing.JLabel lb_telefone;
     private javax.swing.JLabel lb_uf;
-    private javax.swing.JTable tb_cliente;
+    private javax.swing.JTable tb_produto;
     private javax.swing.JFormattedTextField txt_Ano;
     private javax.swing.JTextField txt_Descricao;
     private javax.swing.JTextField txt_Marca;

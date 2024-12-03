@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import Model.Produto;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutoDAO {
     PreparedStatement pst;
@@ -23,7 +24,7 @@ public class ProdutoDAO {
         pst.setString(7, produto.getValidade());
         pst.setInt(8, produto.getQuantidade());
         pst.setDouble(9, produto.getPreco_compra());
-        pst.setDouble(10, produto.getPreco_roi());
+        pst.setDouble(10, produto.getPreco_venda());
         pst.execute();
         pst.close();
     }
@@ -45,7 +46,7 @@ public class ProdutoDAO {
                 rs.getString("validade"),
                 rs.getInt("quantidade"),
                 rs.getDouble("preco_compra"),
-                rs.getDouble("Preco_roi")
+                rs.getDouble("preco_venda")
             );
             listaProdutos.add(pro);
         }
@@ -72,11 +73,40 @@ public class ProdutoDAO {
                 rs.getString("validade"),
                 rs.getInt("quantidade"),
                 rs.getDouble("preco_compra"),
-                rs.getDouble("Preco_roi")
+                rs.getDouble("preco_venda")
             );
         }
         pst.close();
         return pro;
+    }
+    
+    public ArrayList<Produto> buscarProduto(String pesquisa) throws SQLException {
+        ArrayList<Produto> produtos = new ArrayList<>();
+        String sql = "SELECT id, nome, marca, validade FROM produto WHERE nome LIKE ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        // Configurar parâmetro da consulta
+        pst.setString(1, "%" + pesquisa + "%");
+        //pst.setString(1, pesquisa + "%");
+        
+        ResultSet rs = pst.executeQuery();
+        //Produto pro = null;
+        while (rs.next())
+        {                  
+             Produto produto = new Produto();
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setMarca(rs.getString("marca"));
+                produto.setValidade(rs.getString("validade"));
+                //produto.setAno_faixa(rs.getString("ano_faixa"));
+                //produto.setModelo_carro(rs.getString("modelo_carro"));
+                //produto.setQuantidade(rs.getInt("quantidade"));
+                //produto.setPreco_compra(rs.getDouble("preco_compra"));
+                //produto.setPreco_venda(rs.getDouble("preco_venda"));
+
+                produtos.add(produto);
+        }
+         pst.close();
+         return produtos;
     }
     
     public void Deletar(Produto produto) throws SQLException 
@@ -91,7 +121,7 @@ public class ProdutoDAO {
     public void Editar(Produto produto) throws SQLException 
     {
         sql = "update produto set nome=?, descricao=?, ano_faixa=?, modelo_carro=?,"
-            + " marca=?, validade=?, quantidade=?, preco_compra=? preco_roi=? where id=?";
+            + " marca=?, validade=?, quantidade=?, preco_compra=?, preco_venda=? where id=?";
         
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, produto.getNome());
@@ -102,7 +132,7 @@ public class ProdutoDAO {
         pst.setString(6, produto.getValidade());
         pst.setInt(7, produto.getQuantidade());
         pst.setDouble(8, produto.getPreco_compra());
-        pst.setDouble(9, produto.getPreco_roi());
+        pst.setDouble(9, produto.getPreco_venda());
         pst.setInt(10, produto.getId());
         pst.execute();
         pst.close();

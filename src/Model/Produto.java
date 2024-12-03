@@ -11,12 +11,12 @@ public class Produto {
     private String validade;
     private int quantidade;
     private double preco_compra;
-    private double Preco_roi;
+    private double preco_venda;
 
     public Produto() {
     }
 
-    public Produto(int id, String nome, String descricao, String dano_faixa, String modelo_carro, String marca, String validade, int quantidade, double preco_compra, double Preco_roi) {
+    public Produto(int id, String nome, String descricao, String dano_faixa, String modelo_carro, String marca, String validade, int quantidade, double preco_compra, double preco_venda) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -26,7 +26,7 @@ public class Produto {
         this.validade = validade;
         this.quantidade = quantidade;
         this.preco_compra = preco_compra;
-        this.Preco_roi = Preco_roi;
+        this.preco_venda = preco_venda;
     }
 
     public int getId() {
@@ -65,8 +65,8 @@ public class Produto {
         return preco_compra;
     }
 
-    public double getPreco_roi() {
-        return Preco_roi;
+    public double getPreco_venda() {
+        return preco_venda;
     }
 
     public void setId(int id) {
@@ -105,8 +105,8 @@ public class Produto {
         this.preco_compra = preco_compra;
     }
 
-    public void setPreco_roi(double Preco_roi) {
-        this.Preco_roi = Preco_roi;
+    public void setPreco_venda(double preco_venda) {
+        this.preco_venda = preco_venda;
     }
     
 }

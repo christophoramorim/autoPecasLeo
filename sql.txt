@@ -29,7 +29,9 @@ PRIMARY KEY (Id));
 
 ALTER TABLE usuario CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 
-insert into usuario values (0,"gabriel","111-111-111-11","vendedor","gab","123")
+insert into usuario values (0,"vendedor","752.969.880-00","VENDEDOR","venda","venda123");
+insert into usuario values (0,"caixa","022.177.430-07","CAIXA","caixa","caixa123");
+insert into usuario values (0,"administrador","990.470.820-79","ADMIN","admin","admin123");
 
 select * from usuario
 
@@ -51,3 +53,5 @@ PRIMARY KEY (Id));
 insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX","2024","GOL","VW","2024-11-25",100,80.00,150.00)
 
 select * from produto
+
+alter Table produto CHANGE COLUMN Preco_roi preco_venda decimal(10,2)

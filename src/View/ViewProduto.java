@@ -396,6 +396,8 @@ public class ViewProduto extends javax.swing.JInternalFrame {
             produto.setValidade(this.txt_Validade.getText());
             double precoCompra = Double.parseDouble(this.txt_PrecoCompra.getText());
             produto.setPreco_compra(precoCompra);
+            double precoVenda = Double.parseDouble(this.txt_precoVenda.getText());
+            produto.setPreco_venda(precoVenda);
             String roiData =  this.txt_Roi.getSelectedItem().toString();
             
             if(roiData.equals("150%"))
@@ -463,6 +465,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Qtd.setText(String.valueOf(produto.getQuantidade()));
         txt_Validade.setText(produto.getValidade());
         txt_PrecoCompra.setText(String.valueOf(produto.getPreco_compra()));
+        txt_precoVenda.setText(String.valueOf(produto.getPreco_venda()));
         txt_Roi.setSelectedItem(produto.getQuantidade());
         preparaSelecaoTabela();
     }//GEN-LAST:event_tb_produtoMouseClicked
@@ -565,6 +568,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                 txt_Qtd.setText(String.valueOf(produto.getQuantidade()));
                 txt_Validade.setText(produto.getValidade());
                 txt_PrecoCompra.setText(String.valueOf(produto.getPreco_compra()));
+                txt_precoVenda.setText(String.valueOf(produto.getPreco_venda()));
                 txt_Roi.setSelectedItem(produto.getQuantidade());
             }
         } catch (Exception e) {
@@ -585,6 +589,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Marca.setText("");
         txt_Qtd.setText("");
         txt_PrecoCompra.setText("");
+        txt_precoVenda.setText("");
         txt_Validade.setText("");
     }
     
@@ -598,6 +603,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Qtd.setEnabled(condicao);
         txt_Validade.setEnabled(condicao);
         txt_PrecoCompra.setEnabled(condicao);
+        txt_precoVenda.setEnabled(condicao);
         txt_Roi.setEnabled(condicao);
         bt_salvar.setEnabled(condicao);
         btn_Excluir.setEnabled(condicao);

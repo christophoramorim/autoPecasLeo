@@ -328,6 +328,7 @@ public class ViewProdutoConsulta extends javax.swing.JInternalFrame {
         txt_Qtd.setText(String.valueOf(produto.getQuantidade()));
         txt_Validade.setText(produto.getValidade());
         txt_PrecoCompra.setText(String.valueOf(produto.getPreco_compra()));
+        txt_precoVenda.setText(String.valueOf(produto.getPreco_venda()));
         txt_Roi.setSelectedItem(produto.getQuantidade());
     }//GEN-LAST:event_tb_produtoMouseClicked
 
@@ -381,6 +382,7 @@ public class ViewProdutoConsulta extends javax.swing.JInternalFrame {
                 txt_Qtd.setText(String.valueOf(produto.getQuantidade()));
                 txt_Validade.setText(produto.getValidade());
                 txt_PrecoCompra.setText(String.valueOf(produto.getPreco_compra()));
+                txt_precoVenda.setText(String.valueOf(produto.getPreco_venda()));
                 txt_Roi.setSelectedItem(produto.getQuantidade());
             }
         } catch (Exception e) {
@@ -400,6 +402,7 @@ public class ViewProdutoConsulta extends javax.swing.JInternalFrame {
         txt_Marca.setText("");
         txt_Qtd.setText("");
         txt_PrecoCompra.setText("");
+        txt_precoVenda.setText("");
         txt_Validade.setText("");
     }
     
@@ -413,6 +416,7 @@ public class ViewProdutoConsulta extends javax.swing.JInternalFrame {
         txt_Qtd.setEnabled(condicao);
         txt_Validade.setEnabled(condicao);
         txt_PrecoCompra.setEnabled(condicao);
+        txt_precoVenda.setEnabled(condicao);
         txt_Roi.setEnabled(condicao);
     }
     

@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import Model.Produto;
 import DAO.ProdutoDAO;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -396,8 +395,6 @@ public class ViewProduto extends javax.swing.JInternalFrame {
             produto.setValidade(this.txt_Validade.getText());
             double precoCompra = Double.parseDouble(this.txt_PrecoCompra.getText());
             produto.setPreco_compra(precoCompra);
-            double precoVenda = Double.parseDouble(this.txt_precoVenda.getText());
-            produto.setPreco_venda(precoVenda);
             String roiData =  this.txt_Roi.getSelectedItem().toString();
             
             if(roiData.equals("150%"))
@@ -603,7 +600,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Qtd.setEnabled(condicao);
         txt_Validade.setEnabled(condicao);
         txt_PrecoCompra.setEnabled(condicao);
-        txt_precoVenda.setEnabled(condicao);
+        //txt_precoVenda.setEnabled(condicao);
         txt_Roi.setEnabled(condicao);
         bt_salvar.setEnabled(condicao);
         btn_Excluir.setEnabled(condicao);

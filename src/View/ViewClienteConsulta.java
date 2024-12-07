@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ViewCliente extends javax.swing.JInternalFrame {
+public class ViewClienteConsulta extends javax.swing.JInternalFrame {
     ArrayList<Cliente> listaModelClientes = new ArrayList<>();
     
     String salvarAlterar;
@@ -18,7 +18,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
     Cliente cliente;
     ClienteDAO clienteDAO;    
     
-    public ViewCliente() {
+    public ViewClienteConsulta() {
         clienteDAO = new ClienteDAO();
         initComponents();
         this.setVisible(true);
@@ -52,11 +52,6 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         lb_telefone = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_cliente = new javax.swing.JTable();
-        bt_cancelar = new javax.swing.JButton();
-        bt_novo = new javax.swing.JButton();
-        bt_salvar = new javax.swing.JButton();
-        bt_alterar = new javax.swing.JButton();
-        bt_excluir = new javax.swing.JButton();
         txt_cep = new javax.swing.JFormattedTextField();
         lb_cpf = new javax.swing.JLabel();
         txt_cpf = new javax.swing.JFormattedTextField();
@@ -112,51 +107,13 @@ public class ViewCliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_cliente.setEnabled(false);
         tb_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_clienteMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tb_cliente);
-
-        bt_cancelar.setText("Cancelar");
-        bt_cancelar.setEnabled(false);
-        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_cancelarActionPerformed(evt);
-            }
-        });
-
-        bt_novo.setText("Novo");
-        bt_novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_novoActionPerformed(evt);
-            }
-        });
-
-        bt_salvar.setText("Salvar");
-        bt_salvar.setEnabled(false);
-        bt_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_salvarActionPerformed(evt);
-            }
-        });
-
-        bt_alterar.setText("Alterar");
-        bt_alterar.setEnabled(false);
-        bt_alterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_alterarActionPerformed(evt);
-            }
-        });
-
-        bt_excluir.setText("Excluir");
-        bt_excluir.setEnabled(false);
-        bt_excluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_excluirActionPerformed(evt);
-            }
-        });
 
         try {
             txt_cep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -252,16 +209,6 @@ public class ViewCliente extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txt_telefone)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bt_novo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bt_alterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bt_excluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bt_cancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_salvar))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_buscarPorId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -314,127 +261,11 @@ public class ViewCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_buscarPorId))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_novo)
-                    .addComponent(bt_alterar)
-                    .addComponent(bt_excluir)
-                    .addComponent(bt_cancelar)
-                    .addComponent(bt_salvar))
-                .addGap(37, 37, 37))
+                .addGap(90, 90, 90))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
-        this.desabilitaHabilitaCampos(false);
-        preparaSalvarCancelar();
-        this.limparCampos();
-    }//GEN-LAST:event_bt_cancelarActionPerformed
-
-    private void bt_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_novoActionPerformed
-        this.desabilitaHabilitaCampos(true);
-        this.limparCampos();
-        salvarAlterar = "salvar";
-        preparaNovo();
-    }//GEN-LAST:event_bt_novoActionPerformed
-
-    private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        //Verifica se os campos obrigatorios estão preenchidos
-        if(txt_nome.getText().isEmpty() || txt_cpf.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-            txt_nome.requestFocus();
-        }
-        else
-        {
-            //Pegando todos os dados dos botões
-            cliente = new Cliente();
-            
-            int id = 0;
-            if (txt_codigo.getText() != null && !txt_codigo.getText().trim().isEmpty()) {
-                try {
-                    id = Integer.parseInt(txt_codigo.getText().trim());
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "O campo de código deve ser numérico.");
-                }
-            }
-            
-            cliente.setIdCliente(id);
-            cliente.setCliNome(this.txt_nome.getText());
-            cliente.setCliCpf(this.txt_cpf.getText());
-            cliente.setCliEndereco(this.txt_endereco.getText());
-            cliente.setCliBairro(this.txt_bairro.getText());
-            cliente.setCliCidade(this.txt_cidade.getText());
-            cliente.setCliUf(this.cbb_uf.getSelectedItem().toString());
-            cliente.setCliCep(this.txt_cep.getText());
-            cliente.setCliTelefone(this.txt_telefone.getText());
-
-            //identificando qual operação que irá realizar no banco de dados
-            if (salvarAlterar.equals("salvar")) {
-                try {
-                    clienteDAO.Salvar(cliente);
-                }catch(SQLException e){
-                    Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
-                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
-                }
-
-                JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-                carregarClientes();
-                this.limparCampos();
-                this.desabilitaHabilitaCampos(false);
-                preparaSalvarCancelar();
-                
-            } else {
-                try {
-                    clienteDAO.Editar(cliente);
-                }catch(SQLException e){
-                   Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
-                   JOptionPane.showMessageDialog(null, "ERRO: " + e);
-                }
-                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
-                carregarClientes();
-                this.limparCampos();
-                this.desabilitaHabilitaCampos(false);
-                preparaSalvarCancelar();
-            }
-        }
-    }//GEN-LAST:event_bt_salvarActionPerformed
-
-    private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
-        this.desabilitaHabilitaCampos(true);
-        preparaAlterar();
-    }//GEN-LAST:event_bt_alterarActionPerformed
-
-    private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        int linha = tb_cliente.getSelectedRow();
-        int codigoCliente = (int) tb_cliente.getValueAt(linha, 0);
-        
-        if(txt_codigo.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "Selecione um cliente");
-        }
-        else
-        {
-            cliente = new Cliente();
-            cliente.setIdCliente(Integer.parseInt(txt_codigo.getText()));
-            int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
-            if (confirm == 0)
-            {
-               try {
-                clienteDAO.Deletar(cliente);
-            } catch (SQLException e) {
-                Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
-                JOptionPane.showMessageDialog(null, "ERRO: " + e);
-            }
-            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
-            limparCampos();
-            carregarClientes();
-            this.desabilitaHabilitaCampos(false);
-            preparaExcluir();
-            }            
-        }
-    }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void tb_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_clienteMouseClicked
         int linha = tb_cliente.getSelectedRow();
@@ -446,7 +277,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         try {
             cliente = clienteDAO.BuscarClientePorId(String.valueOf(codigoCliente));
         } catch (Exception e) {
-            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ViewClienteConsulta.class.getName()).log(Level.SEVERE, null, e);
         }
 
         // Preenche os campos com os dados do cliente
@@ -459,7 +290,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         cbb_uf.setSelectedItem(cliente.getCliUf());
         txt_cep.setText(cliente.getCliCep());
         txt_telefone.setText(cliente.getCliTelefone());
-        preparaSelecaoTabela();
+       
     }//GEN-LAST:event_tb_clienteMouseClicked
 
     private void txt_filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_filtroActionPerformed
@@ -511,7 +342,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Erro ao buscar cliente: " + e.getMessage(), "Validação de dados!", JOptionPane.ERROR_MESSAGE);
         }
 
-        preparaSelecaoTabela();
+     
     }//GEN-LAST:event_btn_buscarPorIdActionPerformed
 
     private void desabilitaHabilitaCampos(boolean condicao) {
@@ -523,10 +354,6 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         txt_cep.setEnabled(condicao);
         txt_cpf.setEnabled(condicao);
         txt_telefone.setEnabled(condicao);
-        bt_salvar.setEnabled(condicao);
-        bt_excluir.setEnabled(condicao);
-        bt_alterar.setEnabled(condicao);
-        bt_cancelar.setEnabled(condicao);
     }
     
     private void limparCampos() {
@@ -538,45 +365,6 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         txt_cidade.setText("");
         txt_cep.setText("");
         txt_telefone.setText("");
-    }
-
-    
-    public void preparaNovo(){
-        bt_novo.setEnabled(false);
-        bt_salvar.setEnabled(true);
-        bt_cancelar.setEnabled(true);
-        bt_excluir.setEnabled(false);
-        bt_alterar.setEnabled(false);
-        tb_cliente.setEnabled(false);
-        tb_cliente.clearSelection();
-    }
-    
-    public void preparaSalvarCancelar(){
-        bt_novo.setEnabled(true);
-        bt_salvar.setEnabled(false);
-        bt_cancelar.setEnabled(false);
-        tb_cliente.setEnabled(true);
-    }
-    
-    public void preparaSelecaoTabela(){
-        bt_novo.setEnabled(true);
-        bt_excluir.setEnabled(true);
-        bt_alterar.setEnabled(true);
-    }
-    
-     public void preparaAlterar(){
-        bt_novo.setEnabled(false);
-        bt_excluir.setEnabled(false);
-        bt_alterar.setEnabled(false);
-        bt_salvar.setEnabled(true);
-        bt_cancelar.setEnabled(true);
-        tb_cliente.setEnabled(false);
-        tb_cliente.clearSelection();
-    }
-     
-     public void preparaExcluir(){
-        bt_excluir.setEnabled(false);
-        bt_alterar.setEnabled(false);
     }
     
     public void carregarClientes() {
@@ -630,11 +418,6 @@ public class ViewCliente extends javax.swing.JInternalFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_alterar;
-    private javax.swing.JButton bt_cancelar;
-    private javax.swing.JButton bt_excluir;
-    private javax.swing.JButton bt_novo;
-    private javax.swing.JButton bt_salvar;
     private javax.swing.JButton btn_buscarPorId;
     private javax.swing.JComboBox cbb_uf;
     private javax.swing.JScrollPane jScrollPane1;

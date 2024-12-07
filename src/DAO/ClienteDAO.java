@@ -76,6 +76,30 @@ public class ClienteDAO {
         return cli;
     }
     
+    public ArrayList<Cliente> buscarCliente(String pesquisa) throws SQLException {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        // Configurar parâmetro da consulta
+        pst.setString(1, "%" + pesquisa + "%");
+        //pst.setString(1, pesquisa + "%");
+        
+        ResultSet rs = pst.executeQuery();
+        //Cliente cli = null;
+        while (rs.next())
+        {                  
+             Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("id"));
+                cliente.setCliNome(rs.getString("nome"));
+                cliente.setCliCpf(rs.getString("cpf"));
+                cliente.setCliTelefone(rs.getString("telefone"));                               
+
+                clientes.add(cliente);
+        }
+         pst.close();
+         return clientes;
+    }
+    
     public void Deletar(Cliente client) throws SQLException 
     {
         sql = "delete from cliente where id=?";

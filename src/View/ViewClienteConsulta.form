@@ -84,22 +84,11 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="bt_novo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bt_alterar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bt_excluir" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bt_cancelar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="bt_salvar" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <Component id="txt_filtro" min="-2" pref="318" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btn_buscarPorId" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="lb_cidade2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -162,15 +151,7 @@
                   <Component id="txt_filtro" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="btn_buscarPorId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="bt_novo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_alterar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_excluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -318,6 +299,7 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -328,50 +310,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="bt_cancelar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cancelar"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_cancelarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bt_novo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Novo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_novoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bt_salvar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Salvar"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_salvarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bt_alterar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Alterar"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_alterarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bt_excluir">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Excluir"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_excluirActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JFormattedTextField" name="txt_cep">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">

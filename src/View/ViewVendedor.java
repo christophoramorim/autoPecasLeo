@@ -3,28 +3,25 @@ package View;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Model.Usuario;
-import DAO.UsuarioDAO;
+import Model.Vendedor;
+import DAO.VendedorDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ViewVendedor extends javax.swing.JInternalFrame {
-
-    //Usuario modelUsuario = new Usuario();
-    ArrayList<Usuario> listaModelUsuarios = new ArrayList<>();
-    String alterarSalvar;
-    
-    Usuario usuario;
-    UsuarioDAO usuarioDAO;
+    ArrayList<Vendedor> listaModelVendedores = new ArrayList<>();
+    String salvarAlterar;
+    Vendedor vendedor;
+    VendedorDAO vendedorDAO;    
     
     public ViewVendedor() {
-        usuarioDAO = new UsuarioDAO();
+        vendedorDAO = new VendedorDAO();
         initComponents();
         this.setVisible(true);
         this.desabilitaHabilitaCampos(false);
         this.limparCampos();
-        this.carregarUsuarios();
+        this.carregarVendedores();
     }
 
     /**
@@ -40,41 +37,35 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
         txt_codigo = new javax.swing.JTextField();
         lb_nome = new javax.swing.JLabel();
         txt_nome = new javax.swing.JTextField();
-        lb_login = new javax.swing.JLabel();
-        txt_login = new javax.swing.JTextField();
-        txt_senha = new javax.swing.JTextField();
-        lb_senha = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tb_usuario = new javax.swing.JTable();
+        tb_vendedor = new javax.swing.JTable();
         bt_cancelar = new javax.swing.JButton();
-        bt_salvar = new javax.swing.JButton();
-        bt_excluir = new javax.swing.JButton();
-        bt_alterar = new javax.swing.JButton();
         bt_novo = new javax.swing.JButton();
+        bt_salvar = new javax.swing.JButton();
+        bt_alterar = new javax.swing.JButton();
+        bt_excluir = new javax.swing.JButton();
         lb_cpf = new javax.swing.JLabel();
-        txt_cpf = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        cbb_cargo = new javax.swing.JComboBox();
+        txt_cpf = new javax.swing.JFormattedTextField();
+        lb_cidade2 = new javax.swing.JLabel();
+        txt_filtro = new javax.swing.JTextField();
+        btn_buscarPorId = new javax.swing.JButton();
 
         setClosable(true);
 
-        lb_codigo.setText("Código");
+        lb_codigo.setText("Codigo:");
 
-        txt_codigo.setEditable(false);
         txt_codigo.setEnabled(false);
 
         lb_nome.setText("Nome:");
 
-        lb_login.setText("Login:");
+        txt_nome.setEnabled(false);
 
-        lb_senha.setText("Senha:");
-
-        tb_usuario.setModel(new javax.swing.table.DefaultTableModel(
+        tb_vendedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nome", "CPF"
+                "Código", "Nome", "CPF"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -85,33 +76,18 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tb_usuario);
+        tb_vendedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_vendedorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tb_vendedor);
 
         bt_cancelar.setText("Cancelar");
+        bt_cancelar.setEnabled(false);
         bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_cancelarActionPerformed(evt);
-            }
-        });
-
-        bt_salvar.setText("Salvar");
-        bt_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_salvarActionPerformed(evt);
-            }
-        });
-
-        bt_excluir.setText("Excluir");
-        bt_excluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_excluirActionPerformed(evt);
-            }
-        });
-
-        bt_alterar.setText("Alterar");
-        bt_alterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_alterarActionPerformed(evt);
             }
         });
 
@@ -122,11 +98,58 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
             }
         });
 
+        bt_salvar.setText("Salvar");
+        bt_salvar.setEnabled(false);
+        bt_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_salvarActionPerformed(evt);
+            }
+        });
+
+        bt_alterar.setText("Alterar");
+        bt_alterar.setEnabled(false);
+        bt_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_alterarActionPerformed(evt);
+            }
+        });
+
+        bt_excluir.setText("Excluir");
+        bt_excluir.setEnabled(false);
+        bt_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_excluirActionPerformed(evt);
+            }
+        });
+
         lb_cpf.setText("CPF:");
 
-        jLabel6.setText("Cargo:");
+        try {
+            txt_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txt_cpf.setEnabled(false);
 
-        cbb_cargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CAIXA", "VENDEDOR", "ADM" }));
+        lb_cidade2.setText("Filtrar por nome:");
+
+        txt_filtro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_filtroActionPerformed(evt);
+            }
+        });
+        txt_filtro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_filtroKeyReleased(evt);
+            }
+        });
+
+        btn_buscarPorId.setText("Buscar por código do vendedor");
+        btn_buscarPorId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarPorIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,94 +160,88 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_nome))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_login)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lb_codigo)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(lb_nome))
-                                    .addComponent(lb_login))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_codigo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_senha)
-                            .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bt_cancelar)
+                            .addComponent(lb_nome)
+                            .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bt_excluir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lb_cpf)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txt_cpf)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bt_novo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bt_alterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bt_novo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                        .addComponent(bt_excluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bt_cancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_salvar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_cpf)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lb_cpf)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(179, 179, 179))
-                            .addComponent(cbb_cargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_buscarPorId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lb_cidade2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_codigo)
-                    .addComponent(lb_nome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_cpf)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbb_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_codigo)
+                            .addComponent(lb_nome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lb_cpf)
+                        .addGap(26, 26, 26)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lb_cidade2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb_login)
-                    .addComponent(lb_senha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscarPorId))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_cancelar)
-                    .addComponent(bt_salvar)
-                    .addComponent(bt_excluir)
+                    .addComponent(bt_novo)
                     .addComponent(bt_alterar)
-                    .addComponent(bt_novo))
-                .addContainerGap())
+                    .addComponent(bt_excluir)
+                    .addComponent(bt_cancelar)
+                    .addComponent(bt_salvar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
-        limparCampos();
-        desabilitaHabilitaCampos(false);
+        this.desabilitaHabilitaCampos(false);
+        preparaSalvarCancelar();
+        this.limparCampos();
     }//GEN-LAST:event_bt_cancelarActionPerformed
+
+    private void bt_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_novoActionPerformed
+        this.desabilitaHabilitaCampos(true);
+        this.limparCampos();
+        salvarAlterar = "salvar";
+        preparaNovo();
+    }//GEN-LAST:event_bt_novoActionPerformed
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
         //Verifica se os campos obrigatorios estão preenchidos
@@ -234,8 +251,8 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
         }
         else
         {
-            //passa todos os valor para o modelo
-            usuario = new Usuario();
+            //Pegando todos os dados dos botões
+            vendedor = new Vendedor();
             
             int id = 0;
             if (txt_codigo.getText() != null && !txt_codigo.getText().trim().isEmpty()) {
@@ -245,48 +262,50 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "O campo de código deve ser numérico.");
                 }
             }
-        
-            usuario.setId(id);
-            usuario.setNome(this.txt_nome.getText());
-            usuario.setCpf(this.txt_cpf.getText());
-            usuario.setCargo(this.cbb_cargo.getSelectedItem().toString());
-            usuario.setLogin(this.txt_login.getText());
-            usuario.setSenha(this.txt_senha.getText());
+            
+            vendedor.setId(id);
+            vendedor.setNome(this.txt_nome.getText());
+            vendedor.setCpf(this.txt_cpf.getText());
 
-            if (this.alterarSalvar.equals("salvar")) {
+            //identificando qual operação que irá realizar no banco de dados
+            if (salvarAlterar.equals("salvar")) {
                 try {
-                    //função para salvar o uuario no banco de dados
-                    usuarioDAO.Salvar(usuario);
+                    vendedorDAO.Salvar(vendedor);
                 }catch(SQLException e){
                     Logger.getLogger(ViewVendedor.class.getName()).log(Level.SEVERE, null, e);
                     JOptionPane.showMessageDialog(null, "ERRO: " + e);
                 }
-                    JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-                    carregarUsuarios();
-                    this.limparCampos();
-                    this.desabilitaHabilitaCampos(false);
-            } else {
-                try {
-                    //função para alterar o usuario no banco de dados
-                    usuarioDAO.Editar(usuario);
-                }catch(Exception e){
-                    Logger.getLogger(ViewVendedor.class.getName()).log(Level.SEVERE, null, e);
-                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
-                }
-                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
-                carregarUsuarios();
+
+                JOptionPane.showMessageDialog(null, "Gravado com sucesso");
+                carregarVendedores();
                 this.limparCampos();
                 this.desabilitaHabilitaCampos(false);
+                preparaSalvarCancelar();
+                
+            } else {
+                try {
+                    vendedorDAO.Editar(vendedor);
+                }catch(SQLException e){
+                   Logger.getLogger(ViewVendedor.class.getName()).log(Level.SEVERE, null, e);
+                   JOptionPane.showMessageDialog(null, "ERRO: " + e);
+                }
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+                carregarVendedores();
+                this.limparCampos();
+                this.desabilitaHabilitaCampos(false);
+                preparaSalvarCancelar();
             }
         }
-        
-        
     }//GEN-LAST:event_bt_salvarActionPerformed
 
+    private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
+        this.desabilitaHabilitaCampos(true);
+        preparaAlterar();
+    }//GEN-LAST:event_bt_alterarActionPerformed
+
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        //identifica o registro selecionado
-        int linha = tb_usuario.getSelectedRow();
-        int id = (int) tb_usuario.getValueAt(linha, 0);
+        int linha = tb_vendedor.getSelectedRow();
+        int codigoVendedor = (int) tb_vendedor.getValueAt(linha, 0);
         
         if(txt_codigo.getText().isEmpty())
         {
@@ -294,89 +313,194 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
         }
         else
         {
-            usuario = new Usuario();
-            usuario.setId(Integer.parseInt(txt_codigo.getText()));
+            vendedor = new Vendedor();
+            vendedor.setId(Integer.parseInt(txt_codigo.getText()));
             int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
             if (confirm == 0)
             {
                try {
-                usuarioDAO.Deletar(usuario);
+                vendedorDAO.Deletar(vendedor);
             } catch (SQLException e) {
                 Logger.getLogger(ViewVendedor.class.getName()).log(Level.SEVERE, null, e);
                 JOptionPane.showMessageDialog(null, "ERRO: " + e);
             }
-                JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
-                limparCampos();
-                carregarUsuarios();
-                this.desabilitaHabilitaCampos(true);
+            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+            limparCampos();
+            carregarVendedores();
+            this.desabilitaHabilitaCampos(false);
+            preparaExcluir();
             }            
         }
     }//GEN-LAST:event_bt_excluirActionPerformed
 
-    private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
-        //identifica o registro selecionado
-        int linha = tb_usuario.getSelectedRow();
-        int id = (int) tb_usuario.getValueAt(linha, 0);
-        alterarSalvar = "alterar";
-        
-        usuario = new Usuario();
-        
+    private void tb_vendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_vendedorMouseClicked
+        int linha = tb_vendedor.getSelectedRow();
+        int codigoVendedor = (int) tb_vendedor.getValueAt(linha, 0);
+        salvarAlterar = "alterar";
+       
+        vendedor = new Vendedor();        
+
         try {
-            usuario = usuarioDAO.BuscarUsuarioPorId(String.valueOf(id));
+            vendedor = vendedorDAO.BuscarVendedorPorId(String.valueOf(codigoVendedor));
         } catch (Exception e) {
-            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ViewVendedor.class.getName()).log(Level.SEVERE, null, e);
         }
-        
-        txt_codigo.setText(String.valueOf(usuario.getId()));
-        txt_nome.setText(usuario.getNome());
-        txt_cpf.setText(usuario.getCpf());
-        cbb_cargo.setSelectedItem(usuario.getCargo());
-        txt_login.setText(usuario.getLogin());
-        txt_senha.setText(usuario.getSenha());        
-        desabilitaHabilitaCampos(true);
-    }//GEN-LAST:event_bt_alterarActionPerformed
 
-    private void bt_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_novoActionPerformed
-        desabilitaHabilitaCampos(true);
+        // Preenche os campos com os dados do vendedor
+        txt_codigo.setText(String.valueOf(vendedor.getId()));
+        txt_nome.setText(vendedor.getNome());
+        txt_cpf.setText(vendedor.getCpf());
+        preparaSelecaoTabela();
+    }//GEN-LAST:event_tb_vendedorMouseClicked
+
+    private void txt_filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_filtroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_filtroActionPerformed
+
+    private void txt_filtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_filtroKeyReleased
+        String filtro = txt_filtro.getText();
+
+        if (filtro.isEmpty()) {
+            carregarVendedores("");
+        } else {
+            carregarVendedores(filtro);
+        }
+    }//GEN-LAST:event_txt_filtroKeyReleased
+
+    private void btn_buscarPorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarPorIdActionPerformed
         limparCampos();
-        alterarSalvar = "salvar";
-    }//GEN-LAST:event_bt_novoActionPerformed
-
-    private void carregarUsuarios() {
-        try{
-            listaModelUsuarios = usuarioDAO.listarTodosUsuarios();
-            DefaultTableModel modelo = (DefaultTableModel) tb_usuario.getModel();
-            modelo.setNumRows(0);           
-
-            for (Usuario usuario : listaModelUsuarios) {
-                modelo.addRow(new Object[]{
-                    usuario.getId(),
-                    usuario.getNome(),
-                    usuario.getCpf()
-                });            
-            }
-        }catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar usuários: " + e.getMessage());
+        String id = JOptionPane.showInputDialog(this, "Digite o código do vendedor:");
+        if (id == null || id.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Você deve informar um código válido!", "Validação de dados!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+
+        if (!id.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "O código deve conter apenas números!", "Validação de dados!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            vendedor = vendedorDAO.BuscarVendedorPorId(id);
+            if (vendedor == null || vendedor.getId()== 0) {
+                JOptionPane.showMessageDialog(this, "Código do vendedor não encontrado!", "Validação de dados!", JOptionPane.ERROR_MESSAGE);
+                //limparCampos();
+            } else {
+                // Preenche os campos com os dados do produto encontrado
+                txt_codigo.setText(String.valueOf(vendedor.getId()));
+                txt_nome.setText(vendedor.getNome());
+                txt_cpf.setText(vendedor.getCpf());
+            }
+        } catch (Exception e) {
+            Logger.getLogger(ViewVendedor.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(this, "Erro ao buscar vendedor: " + e.getMessage(), "Validação de dados!", JOptionPane.ERROR_MESSAGE);
+        }
+
+        preparaSelecaoTabela();
+    }//GEN-LAST:event_btn_buscarPorIdActionPerformed
+
+    private void desabilitaHabilitaCampos(boolean condicao) {
+        txt_nome.setEnabled(condicao);
+        txt_cpf.setEnabled(condicao);
+        bt_salvar.setEnabled(condicao);
+        bt_excluir.setEnabled(condicao);
+        bt_alterar.setEnabled(condicao);
+        bt_cancelar.setEnabled(condicao);
     }
     
     private void limparCampos() {
         txt_codigo.setText("");
         txt_nome.setText("");
         txt_cpf.setText("");
-        txt_login.setText("");
-        txt_senha.setText("");
+
+    }
+
+    
+    public void preparaNovo(){
+        bt_novo.setEnabled(false);
+        bt_salvar.setEnabled(true);
+        bt_cancelar.setEnabled(true);
+        bt_excluir.setEnabled(false);
+        bt_alterar.setEnabled(false);
+        tb_vendedor.setEnabled(false);
+        tb_vendedor.clearSelection();
     }
     
-    private void desabilitaHabilitaCampos(boolean condicao) {
-        txt_codigo.setEnabled(condicao);
-        txt_nome.setEnabled(condicao);
-        txt_cpf.setEditable(condicao);
-        cbb_cargo.setEditable(condicao);
-        txt_login.setEnabled(condicao);
-        txt_senha.setEnabled(condicao);
-        bt_salvar.setEnabled(condicao);
+    public void preparaSalvarCancelar(){
+        bt_novo.setEnabled(true);
+        bt_salvar.setEnabled(false);
+        bt_cancelar.setEnabled(false);
+        tb_vendedor.setEnabled(true);
     }
+    
+    public void preparaSelecaoTabela(){
+        bt_novo.setEnabled(true);
+        bt_excluir.setEnabled(true);
+        bt_alterar.setEnabled(true);
+    }
+    
+     public void preparaAlterar(){
+        bt_novo.setEnabled(false);
+        bt_excluir.setEnabled(false);
+        bt_alterar.setEnabled(false);
+        bt_salvar.setEnabled(true);
+        bt_cancelar.setEnabled(true);
+        tb_vendedor.setEnabled(false);
+        tb_vendedor.clearSelection();
+    }
+     
+     public void preparaExcluir(){
+        bt_excluir.setEnabled(false);
+        bt_alterar.setEnabled(false);
+    }
+    
+    public void carregarVendedores() {
+        try {
+            listaModelVendedores = vendedorDAO.listarTodos();
+            DefaultTableModel modelo = (DefaultTableModel) tb_vendedor.getModel();
+            modelo.setNumRows(0);           
+
+            for (Vendedor vendedor : listaModelVendedores) {
+                modelo.addRow(new Object[]{
+                    vendedor.getId(),
+                    vendedor.getNome(),
+                    vendedor.getCpf()
+                });            
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar vendedores: " + e.getMessage());
+    }
+}
+    
+    public void carregarVendedores(String filtro) {
+      try {
+          ArrayList<Vendedor> lista;
+
+          if (filtro.isEmpty()) {
+              // Chama o método que retorna todos
+              lista = vendedorDAO.listarTodos();
+          } else {
+              // Chama o método de busca com filtro
+              lista = vendedorDAO.buscarVendedor(filtro);
+          }
+
+          DefaultTableModel modelo = (DefaultTableModel) tb_vendedor.getModel();
+          modelo.setNumRows(0); // Limpa a tabela
+
+          // Preenche a tabela com os dados da lista
+          for (Vendedor vendedor : lista) {
+                  modelo.addRow(new Object[]{
+                      vendedor.getId(),
+                      vendedor.getNome(),
+                      vendedor.getCpf()
+                  });            
+          }
+      } catch (SQLException e) {
+          JOptionPane.showMessageDialog(this, "Erro ao carregar vendedores: " + e.getMessage());
+        }
+    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_alterar;
@@ -384,19 +508,16 @@ public class ViewVendedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_novo;
     private javax.swing.JButton bt_salvar;
-    private javax.swing.JComboBox cbb_cargo;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton btn_buscarPorId;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_cidade2;
     private javax.swing.JLabel lb_codigo;
     private javax.swing.JLabel lb_cpf;
-    private javax.swing.JLabel lb_login;
     private javax.swing.JLabel lb_nome;
-    private javax.swing.JLabel lb_senha;
-    private javax.swing.JTable tb_usuario;
+    private javax.swing.JTable tb_vendedor;
     private javax.swing.JTextField txt_codigo;
-    private javax.swing.JTextField txt_cpf;
-    private javax.swing.JTextField txt_login;
+    private javax.swing.JFormattedTextField txt_cpf;
+    private javax.swing.JTextField txt_filtro;
     private javax.swing.JTextField txt_nome;
-    private javax.swing.JTextField txt_senha;
     // End of variables declaration//GEN-END:variables
 }

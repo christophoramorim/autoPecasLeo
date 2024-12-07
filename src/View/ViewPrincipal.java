@@ -297,7 +297,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mni_clienteActionPerformed
 
     private void mni_vendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_vendedorActionPerformed
-        ViewUsuario vendedor = new ViewUsuario();
+        ViewVendedor vendedor = new ViewVendedor();
         pnl_principal.removeAll();
         pnl_principal.add(vendedor);
         pnl_principal.updateUI();

@@ -16,8 +16,7 @@ public class VendedorDAO {
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
         pst.setString(2, vendedor.getNome());
-        pst.setString(3, vendedor.getNome());
-        pst.setString(4, vendedor.getCpf());
+        pst.setString(3, vendedor.getCpf());
         pst.execute();
         pst.close();
     }
@@ -41,7 +40,7 @@ public class VendedorDAO {
     }
 
     
-    public Vendedor BuscarProdutoPorId(String id) throws SQLException 
+    public Vendedor BuscarVendedorPorId(String id) throws SQLException 
     {
         sql = "select * from vendedor where id = " + id;
         pst = Conexao.getInstance().prepareStatement(sql);
@@ -84,7 +83,7 @@ public class VendedorDAO {
     
     public void Deletar(Vendedor vendedor) throws SQLException 
     {
-        sql = "delete from produto where id=?";
+        sql = "delete from vendedor where id=?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, vendedor.getId());
         pst.execute();

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import Model.Produto;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProdutoDAO {
     PreparedStatement pst;

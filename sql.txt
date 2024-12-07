@@ -55,3 +55,12 @@ insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX",
 select * from produto
 
 alter Table produto CHANGE COLUMN Preco_roi preco_venda decimal(10,2)
+
+CREATE TABLE vendedor(
+  id   int(5) auto_increment, 
+  nome     varchar(45),
+  cpf varchar(45),  
+PRIMARY KEY (Id));
+
+insert into vendedor values (0,"Gabriel","123.123.132-12")
+insert into vendedor values (0,"Vinicius","321.321.321-32")

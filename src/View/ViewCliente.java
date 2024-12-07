@@ -69,13 +69,22 @@ public class ViewCliente extends javax.swing.JInternalFrame {
 
         lb_nome.setText("Nome:");
 
+        txt_nome.setEnabled(false);
+
         lb_endereco.setText("Endereço:");
+
+        txt_endereco.setEnabled(false);
+
+        txt_bairro.setEnabled(false);
 
         lb_bairro.setText("Bairro:");
 
         lb_cidade.setText("Cidade:");
 
+        txt_cidade.setEnabled(false);
+
         cbb_uf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MS", "MT", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        cbb_uf.setEnabled(false);
 
         lb_uf.setText("UF:");
 
@@ -107,6 +116,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tb_cliente);
 
         bt_cancelar.setText("Cancelar");
+        bt_cancelar.setEnabled(false);
         bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_cancelarActionPerformed(evt);
@@ -121,6 +131,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         });
 
         bt_salvar.setText("Salvar");
+        bt_salvar.setEnabled(false);
         bt_salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_salvarActionPerformed(evt);
@@ -128,6 +139,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         });
 
         bt_alterar.setText("Alterar");
+        bt_alterar.setEnabled(false);
         bt_alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_alterarActionPerformed(evt);
@@ -135,6 +147,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         });
 
         bt_excluir.setText("Excluir");
+        bt_excluir.setEnabled(false);
         bt_excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_excluirActionPerformed(evt);
@@ -146,6 +159,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txt_cep.setEnabled(false);
 
         lb_cpf.setText("CPF:");
 
@@ -154,12 +168,14 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txt_cpf.setEnabled(false);
 
         try {
             txt_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txt_telefone.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,6 +292,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
         this.desabilitaHabilitaCampos(false);
+        preparaSalvarCancelar();
         this.limparCampos();
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
@@ -283,6 +300,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         this.desabilitaHabilitaCampos(true);
         this.limparCampos();
         salvarAlterar = "salvar";
+        preparaNovo();
     }//GEN-LAST:event_bt_novoActionPerformed
 
     private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
@@ -328,6 +346,7 @@ public class ViewCliente extends javax.swing.JInternalFrame {
                 carregarClientes();
                 this.limparCampos();
                 this.desabilitaHabilitaCampos(false);
+                preparaSalvarCancelar();
                 
             } else {
                 try {
@@ -340,34 +359,14 @@ public class ViewCliente extends javax.swing.JInternalFrame {
                 carregarClientes();
                 this.limparCampos();
                 this.desabilitaHabilitaCampos(false);
+                preparaSalvarCancelar();
             }
         }
     }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void bt_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_alterarActionPerformed
-        int linha = tb_cliente.getSelectedRow();
-        int codigoCliente = (int) tb_cliente.getValueAt(linha, 0);
-        salvarAlterar = "alterar";
-       
-        cliente = new Cliente();        
-
-        try {
-            cliente = clienteDAO.BuscarClientePorId(String.valueOf(codigoCliente));
-        } catch (Exception e) {
-            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
-        }
-
-        // Preenche os campos com os dados do cliente
-        txt_codigo.setText(String.valueOf(cliente.getIdCliente()));
-        txt_nome.setText(cliente.getCliNome());
-        txt_cpf.setText(cliente.getCliCpf());
-        txt_endereco.setText(cliente.getCliEndereco());
-        txt_bairro.setText(cliente.getCliBairro());
-        txt_cidade.setText(cliente.getCliCidade());
-        cbb_uf.setSelectedItem(cliente.getCliUf());
-        txt_cep.setText(cliente.getCliCep());
-        txt_telefone.setText(cliente.getCliTelefone());
         this.desabilitaHabilitaCampos(true);
+        preparaAlterar();
     }//GEN-LAST:event_bt_alterarActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
@@ -394,13 +393,36 @@ public class ViewCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
             limparCampos();
             carregarClientes();
-            this.desabilitaHabilitaCampos(true);
+            this.desabilitaHabilitaCampos(false);
+            preparaExcluir();
             }            
         }
     }//GEN-LAST:event_bt_excluirActionPerformed
 
     private void tb_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_clienteMouseClicked
+        int linha = tb_cliente.getSelectedRow();
+        int codigoCliente = (int) tb_cliente.getValueAt(linha, 0);
+        salvarAlterar = "alterar";
+       
+        cliente = new Cliente();        
 
+        try {
+            cliente = clienteDAO.BuscarClientePorId(String.valueOf(codigoCliente));
+        } catch (Exception e) {
+            Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        // Preenche os campos com os dados do cliente
+        txt_codigo.setText(String.valueOf(cliente.getIdCliente()));
+        txt_nome.setText(cliente.getCliNome());
+        txt_cpf.setText(cliente.getCliCpf());
+        txt_endereco.setText(cliente.getCliEndereco());
+        txt_bairro.setText(cliente.getCliBairro());
+        txt_cidade.setText(cliente.getCliCidade());
+        cbb_uf.setSelectedItem(cliente.getCliUf());
+        txt_cep.setText(cliente.getCliCep());
+        txt_telefone.setText(cliente.getCliTelefone());
+        preparaSelecaoTabela();
     }//GEN-LAST:event_tb_clienteMouseClicked
 
     private void desabilitaHabilitaCampos(boolean condicao) {
@@ -410,11 +432,16 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         txt_cidade.setEnabled(condicao);
         cbb_uf.setEnabled(condicao);
         txt_cep.setEnabled(condicao);
-        txt_cep.setEnabled(condicao);
+        txt_cpf.setEnabled(condicao);
+        txt_telefone.setEnabled(condicao);
         bt_salvar.setEnabled(condicao);
+        bt_excluir.setEnabled(condicao);
+        bt_alterar.setEnabled(condicao);
+        bt_cancelar.setEnabled(condicao);
     }
     
     private void limparCampos() {
+        txt_codigo.setText("");
         txt_nome.setText("");
         txt_cpf.setText("");
         txt_endereco.setText("");
@@ -422,6 +449,45 @@ public class ViewCliente extends javax.swing.JInternalFrame {
         txt_cidade.setText("");
         txt_cep.setText("");
         txt_telefone.setText("");
+    }
+
+    
+    public void preparaNovo(){
+        bt_novo.setEnabled(false);
+        bt_salvar.setEnabled(true);
+        bt_cancelar.setEnabled(true);
+        bt_excluir.setEnabled(false);
+        bt_alterar.setEnabled(false);
+        tb_cliente.setEnabled(false);
+        tb_cliente.clearSelection();
+    }
+    
+    public void preparaSalvarCancelar(){
+        bt_novo.setEnabled(true);
+        bt_salvar.setEnabled(false);
+        bt_cancelar.setEnabled(false);
+        tb_cliente.setEnabled(true);
+    }
+    
+    public void preparaSelecaoTabela(){
+        bt_novo.setEnabled(true);
+        bt_excluir.setEnabled(true);
+        bt_alterar.setEnabled(true);
+    }
+    
+     public void preparaAlterar(){
+        bt_novo.setEnabled(false);
+        bt_excluir.setEnabled(false);
+        bt_alterar.setEnabled(false);
+        bt_salvar.setEnabled(true);
+        bt_cancelar.setEnabled(true);
+        tb_cliente.setEnabled(false);
+        tb_cliente.clearSelection();
+    }
+     
+     public void preparaExcluir(){
+        bt_excluir.setEnabled(false);
+        bt_alterar.setEnabled(false);
     }
     
     public void carregarClientes() {

@@ -10,19 +10,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ViewProduto extends javax.swing.JInternalFrame {
+public class ViewProdutoConsulta extends javax.swing.JInternalFrame {
     ArrayList<Produto> listaModelProdutos = new ArrayList<>();
     String salvarAlterar;
     Produto produto; 
     ProdutoDAO produtoDAO; 
     
-    public ViewProduto() {
+    public ViewProdutoConsulta() {
         produtoDAO = new ProdutoDAO();
         initComponents();
         this.setVisible(true);
         this.desabilitaHabilitaCampos(false);
         this.limparCampos();
-        this.carregarProdutos();
     }
     
 
@@ -51,7 +50,6 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         lb_telefone = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_produto = new javax.swing.JTable();
-        bt_salvar = new javax.swing.JButton();
         lb_cpf = new javax.swing.JLabel();
         txt_Ano = new javax.swing.JFormattedTextField();
         txt_Qtd = new javax.swing.JTextField();
@@ -59,10 +57,6 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Roi = new javax.swing.JComboBox();
         lb_cidade1 = new javax.swing.JLabel();
         txt_Descricao = new javax.swing.JTextField();
-        btn_Cancelar = new javax.swing.JButton();
-        btn_Novo = new javax.swing.JButton();
-        btn_Alterar = new javax.swing.JButton();
-        btn_Excluir = new javax.swing.JButton();
         txt_precoVenda = new javax.swing.JTextField();
         lb_cep1 = new javax.swing.JLabel();
         txt_filtro = new javax.swing.JTextField();
@@ -118,20 +112,13 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_produto.setEnabled(false);
         tb_produto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_produtoMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tb_produto);
-
-        bt_salvar.setText("Salvar");
-        bt_salvar.setEnabled(false);
-        bt_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_salvarActionPerformed(evt);
-            }
-        });
 
         lb_cpf.setText("Ano:");
 
@@ -152,37 +139,6 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         lb_cidade1.setText("Descrição");
 
         txt_Descricao.setEnabled(false);
-
-        btn_Cancelar.setText("Cancelar");
-        btn_Cancelar.setEnabled(false);
-        btn_Cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_CancelarActionPerformed(evt);
-            }
-        });
-
-        btn_Novo.setText("Novo");
-        btn_Novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_NovoActionPerformed(evt);
-            }
-        });
-
-        btn_Alterar.setText("Alterar");
-        btn_Alterar.setEnabled(false);
-        btn_Alterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_AlterarActionPerformed(evt);
-            }
-        });
-
-        btn_Excluir.setText("Excluir");
-        btn_Excluir.setEnabled(false);
-        btn_Excluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ExcluirActionPerformed(evt);
-            }
-        });
 
         txt_precoVenda.setEnabled(false);
 
@@ -268,16 +224,6 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lb_bairro)
                                         .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btn_Cancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Alterar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Excluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_Novo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bt_salvar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -343,102 +289,21 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                         .addComponent(txt_precoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lb_cidade1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(txt_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(lb_cidade2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_buscarPorId))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_salvar)
-                    .addComponent(btn_Cancelar)
-                    .addComponent(btn_Novo)
-                    .addComponent(btn_Alterar)
-                    .addComponent(btn_Excluir))
-                .addContainerGap())
+                .addGap(56, 56, 56))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
-        //Verifica se os campos obrigatorios estão preenchidos
-        if(txt_nome.getText().isEmpty() || txt_Marca.getText().isEmpty() || txt_Qtd.getText().isEmpty() || txt_PrecoCompra.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-            txt_nome.requestFocus();
-        }
-        else
-        {
-            //Pegando todos os dados dos botões
-            produto = new Produto();
-            
-            int id = 0;
-            if (txt_codigo.getText() != null && !txt_codigo.getText().trim().isEmpty()) {
-                try {
-                    id = Integer.parseInt(txt_codigo.getText().trim());
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "O campo de código deve ser numérico.");
-                }
-            }
-            
-            produto.setId(id);
-            produto.setNome(this.txt_nome.getText());
-            produto.setDescricao(this.txt_Descricao.getText());
-            produto.setAno_faixa(this.txt_Ano.getText());
-            produto.setModelo_carro(this.txt_Modelo.getText());
-            produto.setMarca(this.txt_Marca.getText());
-            produto.setQuantidade(Integer.parseInt(this.txt_Qtd.getText()));
-            produto.setValidade(this.txt_Validade.getText());
-            double precoCompra = Double.parseDouble(this.txt_PrecoCompra.getText());
-            produto.setPreco_compra(precoCompra);
-            String roiData =  this.txt_Roi.getSelectedItem().toString();
-            
-            if(roiData.equals("150%"))
-            {
-                produto.setPreco_venda((precoCompra*1.5)+precoCompra);
-            }else if (roiData.equals("100%"))
-            {
-                produto.setPreco_venda(precoCompra+precoCompra);
-            }else if (roiData.equals("75%"))
-            {
-                produto.setPreco_venda((precoCompra*0.75)+precoCompra);
-            }
-
-            //identificando qual operação que irá realizar no banco de dados
-            if (salvarAlterar.equals("salvar")) {
-                try {
-                    produtoDAO.Salvar(produto);
-                }catch(SQLException e){
-                    Logger.getLogger(ViewCliente.class.getName()).log(Level.SEVERE, null, e);
-                    JOptionPane.showMessageDialog(null, "ERRO: " + e);
-                }
-
-                JOptionPane.showMessageDialog(null, "Gravado com sucesso");
-                carregarProdutos();
-                this.limparCampos();
-                this.desabilitaHabilitaCampos(false);
-                preparaSalvarCancelar();
-                
-            } else {
-                try {
-                    produtoDAO.Editar(produto);
-                }catch(SQLException e){
-                   Logger.getLogger(ViewProduto.class.getName()).log(Level.SEVERE, null, e);
-                   JOptionPane.showMessageDialog(null, "ERRO: " + e);
-                }
-                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
-                carregarProdutos();
-                this.limparCampos();
-                this.desabilitaHabilitaCampos(false);
-                preparaSalvarCancelar();
-            }
-        }
-    }//GEN-LAST:event_bt_salvarActionPerformed
 
     private void tb_produtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_produtoMouseClicked
         int linha = tb_produto.getSelectedRow();
@@ -464,60 +329,11 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Validade.setText(produto.getValidade());
         txt_PrecoCompra.setText(String.valueOf(produto.getPreco_compra()));
         txt_Roi.setSelectedItem(produto.getQuantidade());
-        preparaSelecaoTabela();
     }//GEN-LAST:event_tb_produtoMouseClicked
 
     private void txt_RoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RoiActionPerformed
 
     }//GEN-LAST:event_txt_RoiActionPerformed
-
-    private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        this.desabilitaHabilitaCampos(false);
-        preparaSalvarCancelar();
-        this.limparCampos();
-    }//GEN-LAST:event_btn_CancelarActionPerformed
-
-    private void btn_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NovoActionPerformed
-        this.desabilitaHabilitaCampos(true);
-        this.limparCampos();
-        preparaNovo();
-        salvarAlterar = "salvar";
-    }//GEN-LAST:event_btn_NovoActionPerformed
-
-    private void btn_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AlterarActionPerformed
-        this.desabilitaHabilitaCampos(true);
-        preparaAlterar();
-    }//GEN-LAST:event_btn_AlterarActionPerformed
-
-    private void btn_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExcluirActionPerformed
-        int linha = tb_produto.getSelectedRow();
-        int id = (int) tb_produto.getValueAt(linha, 0);
-        
-        if(txt_codigo.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "Selecione um produto");
-        }
-        else
-        {
-            produto = new Produto();
-            produto.setId(Integer.parseInt(txt_codigo.getText()));
-            int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir: " + txt_nome.getText());
-            if (confirm == 0)
-            {
-               try {
-                produtoDAO.Deletar(produto);
-            } catch (SQLException e) {
-                Logger.getLogger(ViewProduto.class.getName()).log(Level.SEVERE, null, e);
-                JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage(), "Validação de dados!", JOptionPane.ERROR_MESSAGE);
-            }
-            JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
-            limparCampos();
-            carregarProdutos();
-            this.desabilitaHabilitaCampos(false);
-            preparaExcluir();
-            }            
-        }
-    }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
@@ -568,11 +384,10 @@ public class ViewProduto extends javax.swing.JInternalFrame {
                 txt_Roi.setSelectedItem(produto.getQuantidade());
             }
         } catch (Exception e) {
-            Logger.getLogger(ViewProduto.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ViewProdutoConsulta.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, "Erro ao buscar produto: " + e.getMessage(), "Validação de dados!", JOptionPane.ERROR_MESSAGE);
         }
 
-        preparaSelecaoTabela(); 
     }//GEN-LAST:event_btn_buscarPorIdActionPerformed
 
 
@@ -599,49 +414,8 @@ public class ViewProduto extends javax.swing.JInternalFrame {
         txt_Validade.setEnabled(condicao);
         txt_PrecoCompra.setEnabled(condicao);
         txt_Roi.setEnabled(condicao);
-        bt_salvar.setEnabled(condicao);
-        btn_Excluir.setEnabled(condicao);
-        btn_Alterar.setEnabled(condicao);
-        btn_Cancelar.setEnabled(condicao);
     }
     
-    public void preparaNovo(){
-        btn_Novo.setEnabled(false);
-        bt_salvar.setEnabled(true);
-        btn_Cancelar.setEnabled(true);
-        btn_Excluir.setEnabled(false);
-        btn_Alterar.setEnabled(false);
-        tb_produto.setEnabled(false);
-        tb_produto.clearSelection();
-    }
-    
-    public void preparaSalvarCancelar(){
-        btn_Novo.setEnabled(true);
-        bt_salvar.setEnabled(false);
-        btn_Cancelar.setEnabled(false);
-        tb_produto.setEnabled(true);
-    }
-    
-    public void preparaSelecaoTabela(){
-        btn_Novo.setEnabled(true);
-        btn_Excluir.setEnabled(true);
-        btn_Alterar.setEnabled(true);
-    }
-    
-     public void preparaAlterar(){
-        btn_Novo.setEnabled(false);
-        btn_Excluir.setEnabled(false);
-        btn_Alterar.setEnabled(false);
-        bt_salvar.setEnabled(true);
-        btn_Cancelar.setEnabled(true);
-        tb_produto.setEnabled(false);
-        tb_produto.clearSelection();
-    }
-     
-     public void preparaExcluir(){
-        btn_Excluir.setEnabled(false);
-        btn_Alterar.setEnabled(false);
-    }
     
     public void carregarProdutos() {
         try {
@@ -674,7 +448,7 @@ public class ViewProduto extends javax.swing.JInternalFrame {
 
         if (filtro.isEmpty()) {
             // Chama o método que retorna todos os produtos
-            listaProdutos = produtoDAO.listarTodosProdutos();
+            listaProdutos = produtoDAO.buscarProduto("kjdaskdjas907364275hdfkhfdks--fdsmfnsd");
         } else {
             // Chama o método de busca com filtro
             listaProdutos = produtoDAO.buscarProduto(filtro);
@@ -705,11 +479,6 @@ public class ViewProduto extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_salvar;
-    private javax.swing.JButton btn_Alterar;
-    private javax.swing.JButton btn_Cancelar;
-    private javax.swing.JButton btn_Excluir;
-    private javax.swing.JButton btn_Novo;
     private javax.swing.JButton btn_buscarPorId;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;

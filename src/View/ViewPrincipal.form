@@ -46,11 +46,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mni_vendasActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mni_usuario">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mn_consulta">
@@ -75,15 +70,13 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Produtos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mni_consultaProdutoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mni_consultaVenda">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vendas"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mni_consultaUsuario">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -169,26 +162,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem16ActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="mni_impressaoUsuario">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem17">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Imprimir &#xda;nica"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem18">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Imprimir Todas"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem18ActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

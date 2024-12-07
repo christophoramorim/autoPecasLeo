@@ -30,10 +30,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
             mni_vendedor.setVisible(false);
             mni_produto.setVisible(false);
             mni_vendas.setVisible(false);
-            mni_usuario.setVisible(false);
+            //mni_usuario.setVisible(false);
             mn_impressao.setVisible(false);
             mni_consultaVendedor.setVisible(false);
-            mni_consultaUsuario.setVisible(false);
+           // mni_consultaUsuario.setVisible(false);
             //mni_usuario.setVisible(false);
             
         }
@@ -49,8 +49,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
              //não pode
             mni_vendas.setVisible(false); //cadastro
             mn_impressao.setVisible(false);
-            mni_usuario.setVisible(false);
-            mni_consultaUsuario.setVisible(false);
+            //mni_usuario.setVisible(false);
+            //mni_consultaUsuario.setVisible(false);
             //mni_usuario.setVisible(false);
            
         }
@@ -80,13 +80,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mni_vendedor = new javax.swing.JMenuItem();
         mni_produto = new javax.swing.JMenuItem();
         mni_vendas = new javax.swing.JMenuItem();
-        mni_usuario = new javax.swing.JMenuItem();
         mn_consulta = new javax.swing.JMenu();
         mni_consultaCliente = new javax.swing.JMenuItem();
         mni_consultaVendedor = new javax.swing.JMenuItem();
         mni_consultaProduto = new javax.swing.JMenuItem();
         mni_consultaVenda = new javax.swing.JMenuItem();
-        mni_consultaUsuario = new javax.swing.JMenuItem();
         mn_impressao = new javax.swing.JMenu();
         mni_impressaoCliente = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -100,9 +98,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mni_impressaoVenda = new javax.swing.JMenu();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
-        mni_impressaoUsuario = new javax.swing.JMenu();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
         mn_sair = new javax.swing.JMenu();
         mni_logof = new javax.swing.JMenuItem();
         mni_sair = new javax.swing.JMenuItem();
@@ -166,9 +161,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         mn_cadastro.add(mni_vendas);
 
-        mni_usuario.setText("Usuários");
-        mn_cadastro.add(mni_usuario);
-
         jMenuBar1.add(mn_cadastro);
 
         mn_consulta.setText("Consultar");
@@ -185,13 +177,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mn_consulta.add(mni_consultaVendedor);
 
         mni_consultaProduto.setText("Produtos");
+        mni_consultaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mni_consultaProdutoActionPerformed(evt);
+            }
+        });
         mn_consulta.add(mni_consultaProduto);
 
         mni_consultaVenda.setText("Vendas");
         mn_consulta.add(mni_consultaVenda);
-
-        mni_consultaUsuario.setText("Usuários");
-        mn_consulta.add(mni_consultaUsuario);
 
         jMenuBar1.add(mn_consulta);
 
@@ -256,21 +250,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mni_impressaoVenda.add(jMenuItem16);
 
         mn_impressao.add(mni_impressaoVenda);
-
-        mni_impressaoUsuario.setText("Usuários");
-
-        jMenuItem17.setText("Imprimir Única");
-        mni_impressaoUsuario.add(jMenuItem17);
-
-        jMenuItem18.setText("Imprimir Todas");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
-            }
-        });
-        mni_impressaoUsuario.add(jMenuItem18);
-
-        mn_impressao.add(mni_impressaoUsuario);
 
         jMenuBar1.add(mn_impressao);
 
@@ -363,15 +342,18 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
-
     private void mni_logofActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_logofActionPerformed
         // TODO add your handling code here:
         ViewLogin login = new ViewLogin();
         this.dispose();
     }//GEN-LAST:event_mni_logofActionPerformed
+
+    private void mni_consultaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_consultaProdutoActionPerformed
+        ViewProdutoConsulta produto = new ViewProdutoConsulta();
+        pnl_principal.removeAll();
+        pnl_principal.add(produto);
+        pnl_principal.updateUI();
+    }//GEN-LAST:event_mni_consultaProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,8 +399,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu mn_cadastro;
     private javax.swing.JMenu mn_consulta;
@@ -427,18 +407,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mni_cliente;
     private javax.swing.JMenuItem mni_consultaCliente;
     private javax.swing.JMenuItem mni_consultaProduto;
-    private javax.swing.JMenuItem mni_consultaUsuario;
     private javax.swing.JMenuItem mni_consultaVenda;
     private javax.swing.JMenuItem mni_consultaVendedor;
     private javax.swing.JMenu mni_impressaoCliente;
     private javax.swing.JMenu mni_impressaoProduto;
-    private javax.swing.JMenu mni_impressaoUsuario;
     private javax.swing.JMenu mni_impressaoVenda;
     private javax.swing.JMenu mni_impressaoVendedor;
     private javax.swing.JMenuItem mni_logof;
     private javax.swing.JMenuItem mni_produto;
     private javax.swing.JMenuItem mni_sair;
-    private javax.swing.JMenuItem mni_usuario;
     private javax.swing.JMenuItem mni_vendas;
     private javax.swing.JMenuItem mni_vendedor;
     private javax.swing.JPanel pnl_principal;

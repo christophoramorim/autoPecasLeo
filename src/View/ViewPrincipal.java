@@ -166,6 +166,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mn_consulta.setText("Consultar");
 
         mni_consultaCliente.setText("Clientes");
+        mni_consultaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mni_consultaClienteActionPerformed(evt);
+            }
+        });
         mn_consulta.add(mni_consultaCliente);
 
         mni_consultaVendedor.setText("Vendedores");
@@ -354,6 +359,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
         pnl_principal.add(produto);
         pnl_principal.updateUI();
     }//GEN-LAST:event_mni_consultaProdutoActionPerformed
+
+    private void mni_consultaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_consultaClienteActionPerformed
+       ViewClienteConsulta cliente = new ViewClienteConsulta();
+       pnl_principal.removeAll();
+       pnl_principal.add(cliente);
+        pnl_principal.updateUI();
+    }//GEN-LAST:event_mni_consultaClienteActionPerformed
 
     /**
      * @param args the command line arguments

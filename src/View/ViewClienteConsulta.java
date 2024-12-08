@@ -12,9 +12,7 @@ import java.util.logging.Logger;
 
 public class ViewClienteConsulta extends javax.swing.JInternalFrame {
     ArrayList<Cliente> listaModelClientes = new ArrayList<>();
-    
     String salvarAlterar;
-    
     Cliente cliente;
     ClienteDAO clienteDAO;    
     
@@ -24,7 +22,6 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
         this.setVisible(true);
         this.desabilitaHabilitaCampos(false);
         this.limparCampos();
-        this.carregarClientes();
     }
 
     /**
@@ -345,6 +342,17 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_btn_buscarPorIdActionPerformed
 
+    private void limparCampos() {
+        txt_codigo.setText("");
+        txt_nome.setText("");
+        txt_cpf.setText("");
+        txt_endereco.setText("");
+        txt_bairro.setText("");
+        txt_cidade.setText("");
+        txt_cep.setText("");
+        txt_telefone.setText("");
+    }
+    
     private void desabilitaHabilitaCampos(boolean condicao) {
         txt_nome.setEnabled(condicao);
         txt_endereco.setEnabled(condicao);
@@ -356,16 +364,7 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
         txt_telefone.setEnabled(condicao);
     }
     
-    private void limparCampos() {
-        txt_codigo.setText("");
-        txt_nome.setText("");
-        txt_cpf.setText("");
-        txt_endereco.setText("");
-        txt_bairro.setText("");
-        txt_cidade.setText("");
-        txt_cep.setText("");
-        txt_telefone.setText("");
-    }
+
     
     public void carregarClientes() {
         try {
@@ -389,25 +388,30 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
     
     public void carregarClientes(String filtro) {
       try {
-          ArrayList<Cliente> lista;
+          ArrayList<Cliente> listaCliente;
 
           if (filtro.isEmpty()) {
               // Chama o método que retorna todos
-              lista = clienteDAO.listarTodosClientes();
+              listaCliente = clienteDAO.buscarCliente("kjdaskdjas907364275hdfkhfdks--fdsmfnsd");
           } else {
               // Chama o método de busca com filtro
-              lista = clienteDAO.buscarCliente(filtro);
+              listaCliente = clienteDAO.buscarCliente(filtro);
           }
 
           DefaultTableModel modelo = (DefaultTableModel) tb_cliente.getModel();
           modelo.setNumRows(0); // Limpa a tabela
 
           // Preenche a tabela com os dados da lista
-          for (Cliente cliente : lista) {
+          for (Cliente cliente : listaCliente) {
                   modelo.addRow(new Object[]{
                       cliente.getIdCliente(),
                       cliente.getCliNome(),
                       cliente.getCliCpf(),
+                      cliente.getCliEndereco(),
+                      cliente.getCliBairro(),
+                      cliente.getCliCidade(),
+                      cliente.getCliUf(),
+                      cliente.getCliCep(),
                       cliente.getCliTelefone()
                   });            
           }

@@ -328,7 +328,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mni_vendasActionPerformed
 
     private void mni_consultaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_consultaVendedorActionPerformed
-        // TODO add your handling code here:
+        ViewVendedorConsulta vendedor = new ViewVendedorConsulta();
+        pnl_principal.removeAll();
+        pnl_principal.add(vendedor);
+        pnl_principal.updateUI();
     }//GEN-LAST:event_mni_consultaVendedorActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed

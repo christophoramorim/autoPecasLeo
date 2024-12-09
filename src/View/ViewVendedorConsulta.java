@@ -70,6 +70,7 @@ public class ViewVendedorConsulta extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_vendedor.setEnabled(false);
         tb_vendedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_vendedorMouseClicked(evt);
@@ -267,7 +268,7 @@ public class ViewVendedorConsulta extends javax.swing.JInternalFrame {
 
           if (filtro.isEmpty()) {
               // Chama o método que retorna todos
-              lista = vendedorDAO.listarTodos();
+              lista = vendedorDAO.buscarVendedor("kjdaskdjas907364275hdfkhfdks--fdsmfnsd");
           } else {
               // Chama o método de busca com filtro
               lista = vendedorDAO.buscarVendedor(filtro);

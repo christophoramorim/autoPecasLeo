@@ -92,7 +92,12 @@ public class ClienteDAO {
                 cliente.setIdCliente(rs.getInt("id"));
                 cliente.setCliNome(rs.getString("nome"));
                 cliente.setCliCpf(rs.getString("cpf"));
-                cliente.setCliTelefone(rs.getString("telefone"));                               
+                cliente.setCliTelefone(rs.getString("telefone"));
+                cliente.setCliEndereco(rs.getString("endereco"));
+                cliente.setCliBairro(rs.getString("bairro"));
+                cliente.setCliCep(rs.getString("cep"));
+                cliente.setCliCidade(rs.getString("cidade"));
+                cliente.setCliUf(rs.getString("uf"));
 
                 clientes.add(cliente);
         }

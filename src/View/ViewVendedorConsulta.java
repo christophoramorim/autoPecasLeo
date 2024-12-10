@@ -20,7 +20,7 @@ public class ViewVendedorConsulta extends javax.swing.JInternalFrame {
         initComponents();
         this.setVisible(true);
         this.limparCampos();
-        this.carregarVendedores();
+        
     }
 
     /**

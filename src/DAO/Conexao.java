@@ -17,7 +17,8 @@ public class Conexao {
     private Conexao() {
         // Altere o usuário e senha de acordo com o banco de dados instalado
         usuario = "root";
-        senha = "admin";
+        //senha = "admin";
+        senha = "1234";
         
         // Defina aqui o nome do seu banco de dados
         url = "jdbc:mysql://localhost:3306/APL";

@@ -64,3 +64,23 @@ PRIMARY KEY (Id));
 
 insert into vendedor values (0,"Gabriel","123.123.132-12")
 insert into vendedor values (0,"Vinicius","321.321.321-32")
+
+CREATE TABLE venda (
+  id int(5) auto_increment,
+  id_cliente int(5),
+  id_vendedor int(5),
+  totalvenda float(7,2),
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_cliente) REFERENCES cliente (id),
+  FOREIGN KEY (id_vendedor) REFERENCES vendedor (id));
+
+CREATE TABLE itemvenda (
+  id int(5) auto_increment,
+  id_venda int(5),
+  id_produto int(5),
+  quantidade float(5,0),
+  precoitem float(7,2),
+  totalitem float(7,2),
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_venda) REFERENCES venda (id),
+  FOREIGN KEY (id_produto) REFERENCES produto (id));

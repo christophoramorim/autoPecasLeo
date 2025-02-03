@@ -170,7 +170,7 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Código de cliente não encontrado!", "Validação de dados!", JOptionPane.ERROR_MESSAGE);
                 //limparCampos();
             } else {
-                txt_info.setText(info);
+                //txt_info.setText(info);
                 tb_cliente.setValueAt(cliente.getIdCliente(), 0,0);
                 tb_cliente.setValueAt(cliente.getCliNome(), 0,1);
                 tb_cliente.setValueAt(cliente.getCliCpf(), 0,2);

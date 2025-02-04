@@ -21,7 +21,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" pref="658" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -199,28 +199,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txt_codcli" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txt_nomecliente" min="-2" pref="357" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lb_cliente" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                      <Component id="lb_nomecliente" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="lb_numvenda" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="txt_numvenda" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -250,14 +228,17 @@
                                               <Component id="txt_codprod" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                                               <Component id="lb_codprod" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txt_nomeproduto" alignment="0" min="-2" pref="357" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                                                   <Component id="lb_nomeproduto" min="-2" max="-2" attributes="0"/>
                                               </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
+                                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
+                                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="txt_obs" max="32767" attributes="0"/>
                                   </Group>
@@ -279,8 +260,35 @@
                                           <Component id="lb_data" min="-2" max="-2" attributes="0"/>
                                           <Component id="txt_data" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="80" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
                                   </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txt_nomeproduto" alignment="1" min="-2" pref="248" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lb_cliente" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Component id="lb_nomecliente" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="txt_codcli" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="txt_nomecliente" min="-2" pref="248" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lb_numvenda" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="txt_numvenda" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -302,6 +310,7 @@
                           <Component id="txt_codcli" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_nomecliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_numvenda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -320,6 +329,7 @@
                                   <Component id="txt_nomeproduto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="bt_adicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -330,7 +340,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txt_obs" pref="61" max="32767" attributes="0"/>
+                          <Component id="txt_obs" pref="62" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="txt_data" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -535,6 +545,19 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_dataActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

@@ -9,12 +9,12 @@ package View;
  *
  * @author rodri
  */
-public class ViewVendas extends javax.swing.JInternalFrame {
+public class old_ViewVendas extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NewJInternalFrame
      */
-    public ViewVendas() {
+    public old_ViewVendas() {
         initComponents();
     }
 
@@ -65,6 +65,8 @@ public class ViewVendas extends javax.swing.JInternalFrame {
         lb_obs = new javax.swing.JLabel();
         lb_data = new javax.swing.JLabel();
         txt_data = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         lb_pesquisa.setText("Pesquisa:");
 
@@ -220,6 +222,15 @@ public class ViewVendas extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Buscar");
+
         javax.swing.GroupLayout CadastroLayout = new javax.swing.GroupLayout(Cadastro);
         Cadastro.setLayout(CadastroLayout);
         CadastroLayout.setHorizontalGroup(
@@ -228,22 +239,6 @@ public class ViewVendas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(CadastroLayout.createSequentialGroup()
-                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(CadastroLayout.createSequentialGroup()
-                                .addComponent(txt_codcli, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(CadastroLayout.createSequentialGroup()
-                                .addComponent(lb_cliente)
-                                .addGap(47, 47, 47)
-                                .addComponent(lb_nomecliente)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(CadastroLayout.createSequentialGroup()
-                                .addComponent(lb_numvenda)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txt_numvenda)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CadastroLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,12 +263,14 @@ public class ViewVendas extends javax.swing.JInternalFrame {
                                     .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_codprod, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lb_codprod))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(CadastroLayout.createSequentialGroup()
-                                            .addGap(3, 3, 3)
-                                            .addComponent(lb_nomeproduto))))
+                                            .addGap(13, 13, 13)
+                                            .addComponent(lb_nomeproduto))
+                                        .addGroup(CadastroLayout.createSequentialGroup()
+                                            .addGap(268, 268, 268)
+                                            .addComponent(jButton2)))
+                                    .addGap(26, 26, 26))
                                 .addComponent(txt_obs))
                             .addGroup(CadastroLayout.createSequentialGroup()
                                 .addGap(3, 3, 3)
@@ -289,7 +286,27 @@ public class ViewVendas extends javax.swing.JInternalFrame {
                                     .addComponent(lb_quantidade)
                                     .addComponent(lb_data)
                                     .addComponent(txt_data, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 80, Short.MAX_VALUE)))))
+                                .addGap(0, 88, Short.MAX_VALUE))))
+                    .addGroup(CadastroLayout.createSequentialGroup()
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(CadastroLayout.createSequentialGroup()
+                                    .addComponent(lb_cliente)
+                                    .addGap(47, 47, 47)
+                                    .addComponent(lb_nomecliente))
+                                .addGroup(CadastroLayout.createSequentialGroup()
+                                    .addComponent(txt_codcli, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txt_nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addGap(32, 32, 32)
+                        .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CadastroLayout.createSequentialGroup()
+                                .addComponent(lb_numvenda)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txt_numvenda))))
                 .addContainerGap())
         );
         CadastroLayout.setVerticalGroup(
@@ -304,7 +321,8 @@ public class ViewVendas extends javax.swing.JInternalFrame {
                 .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_codcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_numvenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_numvenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(CadastroLayout.createSequentialGroup()
@@ -319,14 +337,15 @@ public class ViewVendas extends javax.swing.JInternalFrame {
                         .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_adicionar)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb_obs)
                     .addComponent(lb_data))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_obs, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(txt_obs, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                     .addGroup(CadastroLayout.createSequentialGroup()
                         .addComponent(txt_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -360,7 +379,7 @@ public class ViewVendas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -407,6 +426,10 @@ public class ViewVendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_dataActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cadastro;
@@ -419,6 +442,8 @@ public class ViewVendas extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_pesquisa;
     private javax.swing.JButton bt_remove;
     private javax.swing.JButton bt_salvar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

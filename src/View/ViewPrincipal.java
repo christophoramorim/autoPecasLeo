@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import View.ViewCliente;
 import View.ViewUsuario;
 import View.ViewProduto;
-import View.ViewVendas;
+import View.ViewVendaa;
 
 public class ViewPrincipal extends javax.swing.JFrame {
 
@@ -321,9 +321,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mni_produtoActionPerformed
 
     private void mni_vendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_vendasActionPerformed
-        ViewVendas Vendas = new ViewVendas();
+        ViewVendaa vendas = new ViewVendaa();
         pnl_principal.removeAll();
-        pnl_principal.add(Vendas);
+        pnl_principal.add(vendas);
         pnl_principal.updateUI();
     }//GEN-LAST:event_mni_vendasActionPerformed
 

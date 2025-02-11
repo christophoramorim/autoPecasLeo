@@ -1,6 +1,7 @@
 
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Venda {
@@ -11,6 +12,7 @@ public class Venda {
     private float totalVenda;
 
     public Venda() {
+        this.itensVenda = new ArrayList<>();
     }
 
     public Venda(int id, Cliente cliente, Vendedor vendedor, List<ItensVenda> itensVenda, float totalVenda) {

@@ -14,7 +14,7 @@ CREATE TABLE cliente(
   telefone varchar(15),
 PRIMARY KEY (Id));
 
-insert into cliente values (0,"Mateus","12345678902","Rua Das Couves","Centro","Frutal","MG","38200-000", "3491111-2222")
+insert into cliente values (0,"Mateus","12345678902","Rua Das Couves","Centro","Frutal","MG","38200-000", "3491111-2222");
 
 SELECT * FROM cliente
 
@@ -50,11 +50,12 @@ CREATE TABLE produto(
   Preco_roi decimal(10,2),
 PRIMARY KEY (Id));
 
-insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX","2024","GOL","VW","2024-11-25",100,80.00,150.00)
+insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX","2024","GOL","VW","2024-11-25",100,80.00,150.00);
+insert into produto values (0,"dengueee","aedes egito","2025","etios","VW","2024-11-25",100,80.00,150.00);
 
-select * from produto
+select * from CLIENTE;
 
-alter Table produto CHANGE COLUMN Preco_roi preco_venda decimal(10,2)
+alter Table produto CHANGE COLUMN Preco_roi preco_venda decimal(10,2);
 
 CREATE TABLE vendedor(
   id   int(5) auto_increment, 
@@ -62,8 +63,8 @@ CREATE TABLE vendedor(
   cpf varchar(45),  
 PRIMARY KEY (Id));
 
-insert into vendedor values (0,"Gabriel","123.123.132-12")
-insert into vendedor values (0,"Vinicius","321.321.321-32")
+insert into vendedor values (0,"Gabriel","123.123.132-12");
+insert into vendedor values (0,"Vinicius","321.321.321-32");
 
 CREATE TABLE venda (
   id int(5) auto_increment,
@@ -84,3 +85,7 @@ CREATE TABLE itemvenda (
   PRIMARY KEY (id),
   FOREIGN KEY (id_venda) REFERENCES venda (id),
   FOREIGN KEY (id_produto) REFERENCES produto (id));
+  
+  INSERT INTO VENDA VALUES (0,1,1,100);
+  
+  INSERT INTO ITEMVENDA VALUES (0,1,1,2,50,100);

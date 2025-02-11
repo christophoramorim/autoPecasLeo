@@ -2,20 +2,19 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Venda {
     private int id;
     private Cliente cliente;
     private Vendedor vendedor;
-    private List<ItensVenda> itensVenda;
-    private float totalVenda;
+    private ArrayList<ItensVenda> itensVenda;
+    private double totalVenda;
 
     public Venda() {
         this.itensVenda = new ArrayList<>();
     }
 
-    public Venda(int id, Cliente cliente, Vendedor vendedor, List<ItensVenda> itensVenda, float totalVenda) {
+    public Venda(int id, Cliente cliente, Vendedor vendedor, ArrayList<ItensVenda> itensVenda, double totalVenda) {
         this.id = id;
         this.cliente = cliente;
         this.vendedor = vendedor;
@@ -47,19 +46,19 @@ public class Venda {
         this.vendedor = vendedor;
     }
 
-    public List<ItensVenda> getItensVenda() {
+    public ArrayList<ItensVenda> getItensVenda() {
         return itensVenda;
     }
 
-    public void setItensVenda(List<ItensVenda> itensVenda) {
+    public void setItensVenda(ArrayList<ItensVenda> itensVenda) {
         this.itensVenda = itensVenda;
     }
 
-    public float getTotalVenda() {
+    public double getTotalVenda() {
         return totalVenda;
     }
 
-    public void setTotalVenda(float totalVenda) {
+    public void setTotalVenda(double totalVenda) {
         this.totalVenda = totalVenda;
     }
     

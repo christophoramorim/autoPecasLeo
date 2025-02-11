@@ -53,7 +53,7 @@ PRIMARY KEY (Id));
 insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX","2024","GOL","VW","2024-11-25",100,80.00,150.00);
 insert into produto values (0,"dengueee","aedes egito","2025","etios","VW","2024-11-25",100,80.00,150.00);
 
-select * from CLIENTE;
+select * from produto;
 
 alter Table produto CHANGE COLUMN Preco_roi preco_venda decimal(10,2);
 
@@ -70,7 +70,7 @@ CREATE TABLE venda (
   id int(5) auto_increment,
   id_cliente int(5),
   id_vendedor int(5),
-  totalvenda float(7,2),
+  totalvenda decimal(7,2),
   PRIMARY KEY (id),
   FOREIGN KEY (id_cliente) REFERENCES cliente (id),
   FOREIGN KEY (id_vendedor) REFERENCES vendedor (id));
@@ -79,13 +79,9 @@ CREATE TABLE itemvenda (
   id int(5) auto_increment,
   id_venda int(5),
   id_produto int(5),
-  quantidade float(5,0),
-  precoitem float(7,2),
-  totalitem float(7,2),
+  quantidade int(5),
+  precoitem decimal(7,2),
+  totalitem decimal(7,2),
   PRIMARY KEY (id),
   FOREIGN KEY (id_venda) REFERENCES venda (id),
   FOREIGN KEY (id_produto) REFERENCES produto (id));
-  
-  INSERT INTO VENDA VALUES (0,1,1,100);
-  
-  INSERT INTO ITEMVENDA VALUES (0,1,1,2,50,100);

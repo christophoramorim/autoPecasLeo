@@ -1,66 +1,49 @@
 package DAO;
 
-import Model.Cliente;
+import Model.ItensVenda;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Model.Venda;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VendaDAO {
-    PreparedStatement pst;
-    String sql;
-    
-    public ArrayList<Cliente> buscarCliente(String pesquisa) throws SQLException {
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
-        pst = Conexao.getInstance().prepareStatement(sql);
-        // Configurar parâmetro da consulta
-        pst.setString(1, "%" + pesquisa + "%");
-        //pst.setString(1, pesquisa + "%");
-        
-        ResultSet rs = pst.executeQuery();
-        //Cliente cli = null;
-        while (rs.next())
-        {                  
-             Cliente cliente = new Cliente();
-                cliente.setIdCliente(rs.getInt("id"));
-                cliente.setCliNome(rs.getString("nome"));
-                cliente.setCliCpf(rs.getString("cpf"));
-                cliente.setCliTelefone(rs.getString("telefone"));
-                cliente.setCliEndereco(rs.getString("endereco"));
-                cliente.setCliBairro(rs.getString("bairro"));
-                cliente.setCliCep(rs.getString("cep"));
-                cliente.setCliCidade(rs.getString("cidade"));
-                cliente.setCliUf(rs.getString("uf"));
+    private PreparedStatement pst;
+    private String sql;
 
-                clientes.add(cliente);
-        }
-         pst.close();
-         return clientes;
-    }
-    
-    public ArrayList<Cliente> listarTodosClientes() throws SQLException {
-        ArrayList<Cliente> listaClientes = new ArrayList<>();
-        String sql = "SELECT * FROM cliente";
-        pst = Conexao.getInstance().prepareStatement(sql);
-        ResultSet rs = pst.executeQuery();
-
+    public void Salvar(Venda venda) throws SQLException {
+        int idVenda = 0;
+        sql = "INSERT INTO venda VALUES (?, ?, ?, ?)";
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        pst.setInt(1, 0);
+        pst.setInt(2, venda.getCliente().getIdCliente());
+        pst.setInt(3, venda.getVendedor().getId());
+        pst.setDouble(4, venda.getTotalVenda());
+        pst.executeUpdate();
+        ResultSet rs = pst.getGeneratedKeys();
         while (rs.next()) {
-            Cliente cli = new Cliente(
-                rs.getInt("id"),
-                rs.getString("nome"),
-                rs.getString("cpf"),
-                rs.getString("endereco"),
-                rs.getString("bairro"),
-                rs.getString("cidade"),
-                rs.getString("uf"),
-                rs.getString("cep"),
-                rs.getString("telefone")
-            );
-            listaClientes.add(cli);
+            idVenda = rs.getInt(1);
         }
         pst.close();
-        return listaClientes;
+        // Agora salva os itens da venda
+        SalvarItensVenda(venda.getItensVenda(), idVenda);
     }
-    
+
+    public void SalvarItensVenda(ArrayList<ItensVenda> itensVenda, int id) throws SQLException {
+        for(ItensVenda itens : itensVenda) 
+        {
+            sql = "insert into itemvenda values (?,?,?,?,?,?)";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, 0);
+            pst.setInt(2, id);
+            pst.setInt(3, itens.getProduto().getId());
+            pst.setInt(4, itens.getQuantidade());
+            pst.setDouble(5, itens.getPreco());
+            pst.setDouble(6, itens.getPrecototalitem());
+            pst.execute();
+            pst.close();
+        }
+    }
 }

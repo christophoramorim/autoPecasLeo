@@ -5,14 +5,14 @@ package Model;
 public class ItensVenda {
     private int id;
     private Produto produto;
-    private float quantidade;
-    private float preco;
-    private float precototalitem;
+    private int quantidade;
+    private double preco;
+    private double precototalitem;
 
     public ItensVenda() {
     }
 
-    public ItensVenda(int id, Produto produto, float quantidade, float preco, float precototalitem) {
+    public ItensVenda(int id, Produto produto, int quantidade, double preco, double precototalitem) {
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -36,27 +36,27 @@ public class ItensVenda {
         this.produto = produto;
     }
 
-    public float getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(float quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
-    public float getPreco() {
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
-    public float getPrecototalitem() {
+    public double getPrecototalitem() {
         return precototalitem;
     }
 
-    public void setPrecototalitem(float precototalitem) {
+    public void setPrecototalitem(double precototalitem) {
         this.precototalitem = precototalitem;
     }
     

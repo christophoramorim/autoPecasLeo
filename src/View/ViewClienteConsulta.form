@@ -25,16 +25,18 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="txt_filtro" min="-2" pref="318" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btn_buscarPorId" pref="663" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jScrollPane1" alignment="0" pref="999" max="32767" attributes="0"/>
                   <Component id="txt_info" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="lb_cidade2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txt_filtro" min="-2" pref="318" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btn_buscarPorId" min="-2" pref="315" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btn_GerarPDF" min="-2" pref="315" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -52,10 +54,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txt_filtro" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="btn_buscarPorId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_GerarPDF" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txt_info" min="-2" pref="212" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="txt_info" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,7 +135,6 @@
                 </Column>
               </TableColumnModel>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -163,6 +165,14 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txt_info">
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_GerarPDF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gerar PDF"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_GerarPDFActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

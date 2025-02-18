@@ -1,16 +1,31 @@
 
 package View;
 
+import DAO.ClienteDAO;
+import DAO.RelatorioDAO;
+import DAO.VendaDAO;
+import Model.Cliente;
 import Model.Usuario;
+import Model.Venda;
+import Utils.RelatorioPDF;
 import javax.swing.JFrame;
 import View.ViewCliente;
 import View.ViewUsuario;
 import View.ViewProduto;
 import View.ViewVenda;
+import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewPrincipal extends javax.swing.JFrame {
-
+    RelatorioDAO relatorioDAO;
+    ClienteDAO clienteDAO;
+    
     public ViewPrincipal(Usuario usuario) {
+        relatorioDAO = new RelatorioDAO();
+        clienteDAO = new ClienteDAO();
         initComponents();
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -190,6 +205,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         mn_consulta.add(mni_consultaProduto);
 
         mni_consultaVenda.setText("Vendas");
+        mni_consultaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mni_consultaVendaActionPerformed(evt);
+            }
+        });
         mn_consulta.add(mni_consultaVenda);
 
         jMenuBar1.add(mn_consulta);
@@ -335,7 +355,51 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mni_consultaVendedorActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            // Busca todas as vendas no banco de dados
+            ArrayList<Cliente> clientes = clienteDAO.listarTodosClientes();
+
+            if (clientes.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhum cliente encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Cria o JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Salvar Relatório como PDF");
+
+            // Define o filtro para exibir apenas arquivos PDF
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
+            fileChooser.setFileFilter(filter);
+
+            // Sugere um nome padrão para o arquivo
+            String nomePadrao = "relatorio_todos_clientes.pdf";
+            fileChooser.setSelectedFile(new java.io.File(nomePadrao));
+
+            // Exibe o diálogo para salvar o arquivo
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Obtém o caminho selecionado pelo usuário
+                java.io.File arquivoSelecionado = fileChooser.getSelectedFile();
+
+                // Garante que o arquivo tenha a extensão .pdf
+                String caminhoArquivo = arquivoSelecionado.getAbsolutePath();
+                if (!caminhoArquivo.toLowerCase().endsWith(".pdf")) {
+                    caminhoArquivo += ".pdf";
+                }
+
+                // Gera o relatório
+                RelatorioPDF.gerarRelatorioTodosClientes(clientes, caminhoArquivo);
+
+                // Exibe mensagem de sucesso
+                JOptionPane.showMessageDialog(this, "Relatório gerado com sucesso!\nCaminho: " + caminhoArquivo, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao gerar relatório: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
@@ -347,7 +411,51 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            // Busca todas as vendas no banco de dados
+            List<Venda> vendas = relatorioDAO.buscarTodasVendasRel();
+
+            if (vendas.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhuma venda encontrada!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Cria o JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Salvar Relatório como PDF");
+
+            // Define o filtro para exibir apenas arquivos PDF
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
+            fileChooser.setFileFilter(filter);
+
+            // Sugere um nome padrão para o arquivo
+            String nomePadrao = "relatorio_todas_vendas.pdf";
+            fileChooser.setSelectedFile(new java.io.File(nomePadrao));
+
+            // Exibe o diálogo para salvar o arquivo
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Obtém o caminho selecionado pelo usuário
+                java.io.File arquivoSelecionado = fileChooser.getSelectedFile();
+
+                // Garante que o arquivo tenha a extensão .pdf
+                String caminhoArquivo = arquivoSelecionado.getAbsolutePath();
+                if (!caminhoArquivo.toLowerCase().endsWith(".pdf")) {
+                    caminhoArquivo += ".pdf";
+                }
+
+                // Gera o relatório
+                RelatorioPDF.gerarRelatorioTodasVendas(vendas, caminhoArquivo);
+
+                // Exibe mensagem de sucesso
+                JOptionPane.showMessageDialog(this, "Relatório gerado com sucesso!\nCaminho: " + caminhoArquivo, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao gerar relatório: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void mni_logofActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_logofActionPerformed
@@ -369,6 +477,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
        pnl_principal.add(cliente);
         pnl_principal.updateUI();
     }//GEN-LAST:event_mni_consultaClienteActionPerformed
+
+    private void mni_consultaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_consultaVendaActionPerformed
+        ViewVendaConsulta vendaConsulta = new ViewVendaConsulta();
+        pnl_principal.removeAll();
+        pnl_principal.add(vendaConsulta);
+        pnl_principal.updateUI();
+    }//GEN-LAST:event_mni_consultaVendaActionPerformed
 
     /**
      * @param args the command line arguments

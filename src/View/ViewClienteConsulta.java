@@ -5,9 +5,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Model.Cliente;
 import DAO.ClienteDAO;
+import Utils.RelatorioPDF;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class ViewClienteConsulta extends javax.swing.JInternalFrame {
@@ -37,6 +40,7 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
         txt_filtro = new javax.swing.JTextField();
         btn_buscarPorId = new javax.swing.JButton();
         txt_info = new javax.swing.JLabel();
+        btn_GerarPDF = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -56,7 +60,6 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tb_cliente.setEnabled(false);
         tb_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tb_clienteMouseClicked(evt);
@@ -84,6 +87,13 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_GerarPDF.setText("Gerar PDF");
+        btn_GerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GerarPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,15 +101,17 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_buscarPorId, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE)
                     .addComponent(txt_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lb_cidade2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_buscarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_GerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -112,9 +124,10 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscarPorId))
+                    .addComponent(btn_buscarPorId)
+                    .addComponent(btn_GerarPDF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_info, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_info, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -189,6 +202,45 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_btn_buscarPorIdActionPerformed
 
+    private void btn_GerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GerarPDFActionPerformed
+        if (cliente == null) {
+            JOptionPane.showMessageDialog(this, "Nenhum cliente selecionada!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Cria o JFileChooser
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Salvar Relatório como PDF");
+
+        // Define o filtro para exibir apenas arquivos PDF
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
+        fileChooser.setFileFilter(filter);
+
+        // Sugere um nome padrão para o arquivo
+        String nomePadrao = "relatorio_cliente_" + cliente.getIdCliente()+ ".pdf";
+        fileChooser.setSelectedFile(new java.io.File(nomePadrao));
+
+        // Exibe o diálogo para salvar o arquivo
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            // Obtém o caminho selecionado pelo usuário
+            java.io.File arquivoSelecionado = fileChooser.getSelectedFile();
+
+            // Garante que o arquivo tenha a extensão .pdf
+            String caminhoArquivo = arquivoSelecionado.getAbsolutePath();
+            if (!caminhoArquivo.toLowerCase().endsWith(".pdf")) {
+                caminhoArquivo += ".pdf";
+            }
+
+            // Gera o relatório
+            RelatorioPDF.gerarRelatorioCliente(cliente, caminhoArquivo);
+
+            // Exibe mensagem de sucesso
+            JOptionPane.showMessageDialog(this, "Relatório gerado com sucesso!\nCaminho: " + caminhoArquivo, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_GerarPDFActionPerformed
+
     public void carregarClientes() {
         try {
             listaModelClientes = clienteDAO.listarTodosClientes();
@@ -250,6 +302,7 @@ public class ViewClienteConsulta extends javax.swing.JInternalFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_GerarPDF;
     private javax.swing.JButton btn_buscarPorId;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_cidade2;

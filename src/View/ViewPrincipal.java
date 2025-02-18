@@ -2,11 +2,15 @@
 package View;
 
 import DAO.ClienteDAO;
+import DAO.ProdutoDAO;
 import DAO.RelatorioDAO;
 import DAO.VendaDAO;
+import DAO.VendedorDAO;
 import Model.Cliente;
+import Model.Produto;
 import Model.Usuario;
 import Model.Venda;
+import Model.Vendedor;
 import Utils.RelatorioPDF;
 import javax.swing.JFrame;
 import View.ViewCliente;
@@ -22,10 +26,14 @@ import java.util.List;
 public class ViewPrincipal extends javax.swing.JFrame {
     RelatorioDAO relatorioDAO;
     ClienteDAO clienteDAO;
+    ProdutoDAO produtoDAO;
+    VendedorDAO vendedorDAO;
     
     public ViewPrincipal(Usuario usuario) {
         relatorioDAO = new RelatorioDAO();
         clienteDAO = new ClienteDAO();
+        produtoDAO = new ProdutoDAO();
+        vendedorDAO = new VendedorDAO();
         initComponents();
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -403,11 +411,99 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            // Busca todas as vendas no banco de dados
+            ArrayList<Vendedor> vendedores = vendedorDAO.listarTodos();
+
+            if (vendedores.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhum vendedor encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Cria o JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Salvar Relatório como PDF");
+
+            // Define o filtro para exibir apenas arquivos PDF
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
+            fileChooser.setFileFilter(filter);
+
+            // Sugere um nome padrão para o arquivo
+            String nomePadrao = "relatorio_todos_vendedores.pdf";
+            fileChooser.setSelectedFile(new java.io.File(nomePadrao));
+
+            // Exibe o diálogo para salvar o arquivo
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Obtém o caminho selecionado pelo usuário
+                java.io.File arquivoSelecionado = fileChooser.getSelectedFile();
+
+                // Garante que o arquivo tenha a extensão .pdf
+                String caminhoArquivo = arquivoSelecionado.getAbsolutePath();
+                if (!caminhoArquivo.toLowerCase().endsWith(".pdf")) {
+                    caminhoArquivo += ".pdf";
+                }
+
+                // Gera o relatório
+                RelatorioPDF.gerarRelatorioTodosVendedores(vendedores, caminhoArquivo);
+
+                // Exibe mensagem de sucesso
+                JOptionPane.showMessageDialog(this, "Relatório gerado com sucesso!\nCaminho: " + caminhoArquivo, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao gerar relatório: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            // Busca todas as vendas no banco de dados
+            ArrayList<Produto> produtos = produtoDAO.listarTodosProdutos();
+
+            if (produtos.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhum produto encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Cria o JFileChooser
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Salvar Relatório como PDF");
+
+            // Define o filtro para exibir apenas arquivos PDF
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos PDF (*.pdf)", "pdf");
+            fileChooser.setFileFilter(filter);
+
+            // Sugere um nome padrão para o arquivo
+            String nomePadrao = "relatorio_todos_produtos.pdf";
+            fileChooser.setSelectedFile(new java.io.File(nomePadrao));
+
+            // Exibe o diálogo para salvar o arquivo
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Obtém o caminho selecionado pelo usuário
+                java.io.File arquivoSelecionado = fileChooser.getSelectedFile();
+
+                // Garante que o arquivo tenha a extensão .pdf
+                String caminhoArquivo = arquivoSelecionado.getAbsolutePath();
+                if (!caminhoArquivo.toLowerCase().endsWith(".pdf")) {
+                    caminhoArquivo += ".pdf";
+                }
+
+                // Gera o relatório
+                RelatorioPDF.gerarRelatorioTodosProdutos(produtos, caminhoArquivo);
+
+                // Exibe mensagem de sucesso
+                JOptionPane.showMessageDialog(this, "Relatório gerado com sucesso!\nCaminho: " + caminhoArquivo, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao gerar relatório: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed

@@ -2,7 +2,9 @@ package Utils;
 
 import Model.Cliente;
 import Model.ItensVenda;
+import Model.Produto;
 import Model.Venda;
+import Model.Vendedor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -210,4 +212,142 @@ public class RelatorioPDF {
            }
      }
      //Fim Cliente
+     
+     //Vendedor
+     public static void gerarRelatorioVendedor(Vendedor vendedor, String caminhoArquivo) {
+        Document document = new Document();
+
+        try {
+            // Inicializa o escritor de PDF
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoArquivo));
+            document.open();
+
+            // Título do relatório
+            document.add(new Paragraph("Relatório ficha Vendedor"));
+            document.add(new Paragraph(" "));
+
+            // Informações da venda
+            document.add(new Paragraph("Código do Vendedor: " + vendedor.getId()));
+            document.add(new Paragraph("Nome: " + vendedor.getNome()));
+            document.add(new Paragraph("Cpf: " + vendedor.getCpf()));
+
+            document.add(new Paragraph(" "));           
+
+            // Fecha o documento
+            document.close();
+
+            System.out.println("Relatório gerado com sucesso: " + caminhoArquivo);
+
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+     
+     public static void gerarRelatorioTodosVendedores(ArrayList<Vendedor> vendedores, String caminhoArquivo) {
+        Document document = new Document();
+
+           try {
+               PdfWriter.getInstance(document, new FileOutputStream(caminhoArquivo));
+               document.open();
+
+               // Título do relatório
+               document.add(new Paragraph("Relatório de Todos os Vendedores"));
+               document.add(new Paragraph(" "));
+
+               // Variável para calcular o subtotal
+               double subtotal = 0;
+
+               // Itera sobre todas as vendas
+               for (Vendedor vendedor : vendedores) {
+                   document.add(new Paragraph("Código do Vendedor: " + vendedor.getId()));
+                   document.add(new Paragraph("Nome: " + vendedor.getNome()));
+                   document.add(new Paragraph("Cpf: " + vendedor.getCpf()));
+                   document.add(new Paragraph(" ")); 
+               }
+
+               document.close();
+
+               System.out.println("Relatório gerado com sucesso: " + caminhoArquivo);
+
+           } catch (DocumentException | FileNotFoundException e) {
+               e.printStackTrace();
+           }
+     }
+     //Fim Vendedor
+     
+     //Produto
+     public static void gerarRelatorioProduto(Produto produto, String caminhoArquivo) {
+        Document document = new Document();
+
+        try {
+            // Inicializa o escritor de PDF
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoArquivo));
+            document.open();
+
+            // Título do relatório
+            document.add(new Paragraph("Relatório ficha Produto"));
+            document.add(new Paragraph(" "));
+
+            // Informações da venda
+            document.add(new Paragraph("Código do Produto: " + produto.getId()));
+            document.add(new Paragraph("Nome: " + produto.getNome()));
+            document.add(new Paragraph("Descricao: " + produto.getDescricao()));
+            document.add(new Paragraph("Ano: " + produto.getAno_faixa()));
+            document.add(new Paragraph("Modelo do Carro: " + produto.getModelo_carro()));
+            document.add(new Paragraph("Marca: " + produto.getMarca()));
+            document.add(new Paragraph("Validade: " + produto.getValidade()));
+            document.add(new Paragraph("Quantidade: " + produto.getQuantidade()));
+            document.add(new Paragraph("Preço de compra: " + produto.getPreco_compra()));
+            document.add(new Paragraph("Preço de venda: " + produto.getPreco_venda()));
+
+            document.add(new Paragraph(" "));           
+
+            // Fecha o documento
+            document.close();
+
+            System.out.println("Relatório gerado com sucesso: " + caminhoArquivo);
+
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+     
+     public static void gerarRelatorioTodosProdutos(ArrayList<Produto> produtos, String caminhoArquivo) {
+        Document document = new Document();
+
+           try {
+               PdfWriter.getInstance(document, new FileOutputStream(caminhoArquivo));
+               document.open();
+
+               // Título do relatório
+               document.add(new Paragraph("Relatório de Todos os Produtos"));
+               document.add(new Paragraph(" "));
+
+               // Variável para calcular o subtotal
+               double subtotal = 0;
+
+               // Itera sobre todas as vendas
+               for (Produto produto : produtos) {
+                   document.add(new Paragraph("Código do Produto: " + produto.getId()));
+                   document.add(new Paragraph("Nome: " + produto.getNome()));
+                   document.add(new Paragraph("Descricao: " + produto.getDescricao()));
+                   document.add(new Paragraph("Ano: " + produto.getAno_faixa()));
+                   document.add(new Paragraph("Modelo do Carro: " + produto.getModelo_carro()));
+                   document.add(new Paragraph("Marca: " + produto.getMarca()));
+                   document.add(new Paragraph("Validade: " + produto.getValidade()));
+                   document.add(new Paragraph("Quantidade: " + produto.getQuantidade()));
+                   document.add(new Paragraph("Preço de compra: " + produto.getPreco_compra()));
+                   document.add(new Paragraph("Preço de venda: " + produto.getPreco_venda()));
+                   document.add(new Paragraph(" "));
+               }
+
+               document.close();
+
+               System.out.println("Relatório gerado com sucesso: " + caminhoArquivo);
+
+           } catch (DocumentException | FileNotFoundException e) {
+               e.printStackTrace();
+           }
+     }
+     //Fim Produto
 }

@@ -14,8 +14,8 @@ public class AutoPecasLeo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ViewPrincipal principal = new ViewPrincipal(null);
-       // ViewLogin login = new ViewLogin();
+        //ViewPrincipal principal = new ViewPrincipal(null);
+       ViewLogin login = new ViewLogin();
     }
     
 }

@@ -22,6 +22,10 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class ViewPrincipal extends javax.swing.JFrame {
     RelatorioDAO relatorioDAO;
@@ -36,9 +40,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
         vendedorDAO = new VendedorDAO();
         initComponents();
         this.setVisible(true);
+        
+        String userLogado = usuario.getNome();
+        
+        setTitle("Tela Principal" + " - " + "Usuário: " + userLogado);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        txt_usuario.setText(usuario.getNome());
+        //txt_usuario.setText(usuario.getNome());
         
         if(usuario.getCargo().equals("VENDEDOR"))
         {
@@ -96,7 +104,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         pnl_principal = new javax.swing.JPanel();
-        txt_usuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mn_cadastro = new javax.swing.JMenu();
         mni_cliente = new javax.swing.JMenuItem();
@@ -130,22 +137,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         pnl_principal.setBackground(new java.awt.Color(255, 255, 255));
 
-        txt_usuario.setBackground(new java.awt.Color(255, 255, 255));
-        txt_usuario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
         javax.swing.GroupLayout pnl_principalLayout = new javax.swing.GroupLayout(pnl_principal);
         pnl_principal.setLayout(pnl_principalLayout);
         pnl_principalLayout.setHorizontalGroup(
             pnl_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_principalLayout.createSequentialGroup()
-                .addGap(0, 564, Short.MAX_VALUE)
-                .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 984, Short.MAX_VALUE)
         );
         pnl_principalLayout.setVerticalGroup(
             pnl_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_principalLayout.createSequentialGroup()
-                .addContainerGap(543, Short.MAX_VALUE)
-                .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 556, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -324,7 +324,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void mni_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mni_clienteActionPerformed
         ViewCliente cliente = new ViewCliente();
-        pnl_principal.removeAll();
+        //pnl_principal.removeAll();
         pnl_principal.add(cliente);
         pnl_principal.updateUI();
     }//GEN-LAST:event_mni_clienteActionPerformed
@@ -645,6 +645,5 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mni_vendas;
     private javax.swing.JMenuItem mni_vendedor;
     private javax.swing.JPanel pnl_principal;
-    private javax.swing.JLabel txt_usuario;
     // End of variables declaration//GEN-END:variables
 }

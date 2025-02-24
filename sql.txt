@@ -15,6 +15,36 @@ CREATE TABLE cliente(
 PRIMARY KEY (Id));
 
 insert into cliente values (0,"Mateus","12345678902","Rua Das Couves","Centro","Frutal","MG","38200-000", "3491111-2222");
+INSERT INTO cliente VALUES 
+(0, "Ana Souza", "12345678901", "Rua das Flores", "Centro", "São Paulo", "SP", "01000-000", "1199999-1111"),
+(0, "Bruno Lima", "23456789012", "Avenida Brasil", "Jardins", "Rio de Janeiro", "RJ", "20000-000", "2198888-2222"),
+(0, "Carlos Mendes", "34567890123", "Rua XV de Novembro", "Boa Vista", "Curitiba", "PR", "80000-000", "4197777-3333"),
+(0, "Daniela Castro", "45678901234", "Avenida Paulista", "Bela Vista", "São Paulo", "SP", "01310-000", "1196666-4444"),
+(0, "Eduardo Farias", "56789012345", "Rua das Palmeiras", "Centro", "Belo Horizonte", "MG", "30100-000", "3195555-5555"),
+(0, "Fernanda Oliveira", "67890123456", "Rua Goiás", "Centro", "Goiânia", "GO", "74000-000", "6294444-6666"),
+(0, "Gustavo Ribeiro", "78901234567", "Rua Bahia", "Zona Sul", "Porto Alegre", "RS", "90000-000", "5193333-7777"),
+(0, "Helena Martins", "89012345678", "Rua Pernambuco", "Vila Nova", "Florianópolis", "SC", "88000-000", "4892222-8888"),
+(0, "Igor Almeida", "90123456789", "Avenida Ceará", "Centro", "Fortaleza", "CE", "60000-000", "8591111-9999"),
+(0, "Juliana Ferreira", "01234567890", "Rua Maranhão", "Centro", "São Luís", "MA", "65000-000", "9890000-1010"),
+(0, "Lucas Silva", "11223344556", "Rua Paraíba", "Centro", "Belém", "PA", "66000-000", "9198888-2020"),
+(0, "Mariana Costa", "22334455667", "Avenida Amazonas", "Centro", "Manaus", "AM", "69000-000", "9297777-3030"),
+(0, "Nicolas Rocha", "33445566778", "Rua Sergipe", "Jardins", "Campo Grande", "MS", "79000-000", "6796666-4040"),
+(0, "Olivia Nunes", "44556677889", "Rua Rio Grande do Sul", "Bairro Novo", "Natal", "RN", "59000-000", "8495555-5050"),
+(0, "Pedro Henrique", "55667788990", "Rua Espírito Santo", "Zona Norte", "João Pessoa", "PB", "58000-000", "8394444-6060"),
+(0, "Quitéria Vasconcelos", "66778899001", "Rua Santa Catarina", "Vila Velha", "Vitória", "ES", "29000-000", "2793333-7070"),
+(0, "Ricardo Batista", "77889900112", "Avenida São João", "Centro", "Aracaju", "SE", "49000-000", "7992222-8080"),
+(0, "Samantha Duarte", "88990011223", "Rua Paraná", "Cidade Alta", "Teresina", "PI", "64000-000", "8691111-9090"),
+(0, "Thiago Barbosa", "99001122334", "Rua Acre", "Bela Vista", "Macapá", "AP", "68900-000", "9690000-1010"),
+(0, "Ursula Mendes", "10111222334", "Avenida Tocantins", "Centro", "Palmas", "TO", "77000-000", "6398888-1111"),
+(0, "Vitor Hugo", "11223344556", "Rua Piauí", "Zona Leste", "Boa Vista", "RR", "69300-000", "9597777-1212"),
+(0, "Wellington Carvalho", "22334455667", "Rua Alagoas", "Centro", "Maceió", "AL", "57000-000", "8296666-1313"),
+(0, "Xuxa Lima", "33445566778", "Avenida Maranhão", "Vila Rica", "Porto Velho", "RO", "76800-000", "6995555-1414"),
+(0, "Yasmin Lopes", "44556677889", "Rua Pernambuco", "Centro", "Cuiabá", "MT", "78000-000", "6594444-1515"),
+(0, "Zeca Fernandes", "55667788990", "Rua Santa Luzia", "Jardins", "Recife", "PE", "50000-000", "8193333-1616"),
+(0, "Arthur Gomes", "66778899001", "Avenida Acre", "Centro", "Rio Branco", "AC", "69900-000", "6892222-1717"),
+(0, "Beatriz Oliveira", "77889900112", "Rua Goiás", "Vila Nova", "São Carlos", "SP", "13560-000", "1691111-1818"),
+(0, "Cauã Souza", "88990011223", "Rua Sergipe", "Centro", "Uberlândia", "MG", "38400-000", "3490000-1919"),
+(0, "Debora Santos", "99001122334", "Avenida Bahia", "Cidade Alta", "Campinas", "SP", "13000-000", "1998888-2020");
 
 SELECT * FROM cliente
 
@@ -52,6 +82,37 @@ PRIMARY KEY (Id));
 
 insert into produto values (0,"Bomba-da-agua","bom de agua no motor modelo XXX","2024","GOL","VW","2024-11-25",100,80.00,150.00);
 insert into produto values (0,"dengueee","aedes egito","2025","etios","VW","2024-11-25",100,80.00,150.00);
+INSERT INTO produto VALUES 
+(0, "Filtro de Óleo", "Filtro de óleo para motor modelo YYY", "2024", "GOL", "VW", "2024-12-15", 50, 25.00, 50.00),
+(0, "Pastilha de Freio", "Pastilhas de freio dianteiras para modelo ZZZ", "2023", "ONIX", "CHEVROLET", "2025-01-10", 80, 40.00, 90.00),
+(0, "Correia Dentada", "Correia dentada reforçada para modelo AAA", "2024", "PALIO", "FIAT", "2024-10-20", 60, 70.00, 120.00),
+(0, "Velas de Ignição", "Jogo com 4 velas de ignição para motor 1.6", "2023", "CIVIC", "HONDA", "2025-02-05", 100, 15.00, 35.00),
+(0, "Amortecedor Dianteiro", "Amortecedor dianteiro gás pressurizado", "2024", "COROLLA", "TOYOTA", "2024-09-18", 30, 200.00, 350.00),
+(0, "Disco de Freio", "Disco de freio ventilado de alto desempenho", "2024", "FOCUS", "FORD", "2024-11-30", 40, 180.00, 300.00),
+(0, "Filtro de Ar", "Filtro de ar esportivo modelo universal", "2023", "UNO", "FIAT", "2025-03-12", 70, 35.00, 70.00),
+(0, "Bateria 60Ah", "Bateria automotiva selada de 60Ah", "2024", "HB20", "HYUNDAI", "2024-12-01", 20, 250.00, 500.00),
+(0, "Radiador", "Radiador de alumínio com alta eficiência", "2024", "GOL", "VW", "2025-04-22", 15, 320.00, 600.00),
+(0, "Coxim do Motor", "Coxim do motor reforçado para modelo BBB", "2023", "ECOSPORT", "FORD", "2024-08-10", 50, 45.00, 95.00),
+(0, "Kit Embreagem", "Kit de embreagem completo para motor 1.8", "2024", "CIVIC", "HONDA", "2025-06-30", 25, 400.00, 750.00),
+(0, "Junta do Cabeçote", "Junta do cabeçote de aço inox", "2024", "COROLLA", "TOYOTA", "2024-11-05", 35, 90.00, 170.00),
+(0, "Óleo de Motor 5W30", "Óleo sintético 5W30 para alto desempenho", "2023", "PALIO", "FIAT", "2025-07-14", 200, 30.00, 70.00),
+(0, "Sensor de Temperatura", "Sensor de temperatura digital", "2024", "ONIX", "CHEVROLET", "2024-10-05", 60, 25.00, 55.00),
+(0, "Alternador", "Alternador 12V 90A", "2023", "HB20", "HYUNDAI", "2025-08-19", 10, 500.00, 950.00),
+(0, "Eixo Traseiro", "Eixo traseiro reforçado para modelo DDD", "2024", "FOCUS", "FORD", "2024-12-10", 5, 700.00, 1200.00),
+(0, "Reservatório de Água", "Reservatório de expansão com tampa", "2023", "GOL", "VW", "2025-02-28", 40, 50.00, 110.00),
+(0, "Bomba de Combustível", "Bomba de combustível elétrica", "2024", "COROLLA", "TOYOTA", "2024-09-25", 20, 180.00, 350.00),
+(0, "Módulo de Injeção", "Módulo eletrônico para injeção direta", "2023", "CIVIC", "HONDA", "2025-03-17", 8, 900.00, 1800.00),
+(0, "Pneu Aro 15", "Pneu 195/55 R15 de alto desempenho", "2024", "ONIX", "CHEVROLET", "2024-12-01", 30, 250.00, 480.00),
+(0, "Jogo de Rodas", "Jogo de rodas esportivas aro 17", "2024", "FOCUS", "FORD", "2024-10-29", 10, 1200.00, 2200.00),
+(0, "Parachoque Dianteiro", "Parachoque dianteiro original", "2023", "GOL", "VW", "2025-05-15", 12, 450.00, 850.00),
+(0, "Porta Malas", "Porta-malas completo com chave", "2024", "PALIO", "FIAT", "2024-11-12", 6, 700.00, 1300.00),
+(0, "Lanterna Traseira", "Lanterna traseira lado direito", "2023", "COROLLA", "TOYOTA", "2025-04-07", 20, 120.00, 250.00),
+(0, "Farol de Milha", "Farol de milha universal LED", "2024", "HB20", "HYUNDAI", "2024-09-22", 50, 90.00, 180.00),
+(0, "Retrovisor Elétrico", "Retrovisor elétrico com pisca", "2024", "CIVIC", "HONDA", "2024-12-20", 25, 280.00, 500.00),
+(0, "Suspensão a Ar", "Kit completo de suspensão a ar", "2023", "FOCUS", "FORD", "2025-06-10", 5, 3000.00, 5500.00),
+(0, "Escapamento Esportivo", "Escapamento inox para desempenho", "2024", "ONIX", "CHEVROLET", "2024-10-15", 10, 900.00, 1600.00),
+(0, "Filtro de Combustível", "Filtro de combustível para sistema flex", "2023", "GOL", "VW", "2025-03-05", 80, 40.00, 85.00),
+(0, "Macaco Hidráulico", "Macaco hidráulico tipo jacaré 2T", "2024", "PALIO", "FIAT", "2024-12-30", 15, 150.00, 300.00);
 
 select * from produto;
 
@@ -65,6 +126,39 @@ PRIMARY KEY (Id));
 
 insert into vendedor values (0,"Gabriel","123.123.132-12");
 insert into vendedor values (0,"Vinicius","321.321.321-32");
+INSERT INTO vendedor VALUES 
+(0, "Carlos Eduardo", "321.654.987-10"),
+(0, "Mariana Silva", "123.456.789-01"),
+(0, "Fernando Souza", "987.654.321-22"),
+(0, "Aline Rodrigues", "111.222.333-44"),
+(0, "Ricardo Oliveira", "555.666.777-88"),
+(0, "Juliana Mendes", "999.888.777-66"),
+(0, "Lucas Ferreira", "444.555.666-77"),
+(0, "Patrícia Gomes", "222.333.444-55"),
+(0, "André Santos", "777.888.999-00"),
+(0, "Bianca Costa", "666.777.888-11"),
+(0, "Rafael Martins", "123.789.456-33"),
+(0, "Vanessa Lima", "456.123.789-22"),
+(0, "Eduardo Alves", "789.456.123-55"),
+(0, "Camila Ribeiro", "333.222.111-77"),
+(0, "Thiago Nascimento", "888.999.000-11"),
+(0, "Sabrina Almeida", "555.444.333-99"),
+(0, "Rodrigo Teixeira", "777.111.888-22"),
+(0, "Gustavo Mendes", "222.666.444-33"),
+(0, "Natália Pereira", "999.000.111-44"),
+(0, "Felipe Araújo", "444.777.555-66"),
+(0, "Larissa Souza", "333.111.222-99"),
+(0, "Bruno Cardoso", "666.555.444-88"),
+(0, "Tatiane Moreira", "111.888.999-00"),
+(0, "Samuel Andrade", "123.321.456-77"),
+(0, "Beatriz Rocha", "789.987.654-22"),
+(0, "Henrique Lopes", "456.654.321-33"),
+(0, "Elaine Fonseca", "999.666.111-55"),
+(0, "Wellington Assis", "222.555.777-66"),
+(0, "Jéssica Barreto", "111.444.888-99"),
+(0, "Paulo Henrique", "333.666.999-11");
+
+select * from vendedor;
 
 CREATE TABLE venda (
   id int(5) auto_increment,
